@@ -1,0 +1,68 @@
+﻿@model LR.Models.RaceModels.RaceModel
+@{
+    ViewBag.Title = "Game";
+}
+@section customScripts{
+    <script src="~/Scripts/kinetic-v4.5.5.min.js"></script>
+    <script src="~/Scripts/knockout-2.3.0.js"></script>
+    <script src="~/Scripts/Game/RaceController.js"></script>
+    <script src="~/Scripts/Game/GameModel.js"></script>
+	<link href="../../Content/Game.css" rel="stylesheet" type="text/css" />
+    <script>
+        var userId = @(CurrentUser.UserId);
+        function getQuestions(){
+            var qs = [];
+            @foreach (LR.Models.Question sq in @ViewBag.questionList)
+            {
+                @:var q = new question('@sq.Id', '@sq.QuestionText', '@Model.RaceId');
+                foreach (LR.Models.Variant sv in sq.Variants)
+                {
+                    @:var v = new variant('@sv.Id', '@sv.Value');
+                    @:q.addVariant(v);
+                }
+                @:qs.push(q);
+            }
+            return qs;
+        }
+        function getRaceData(){
+            var raceData = { id: '@Model.RaceId', length: @Model.Length, isStarted: @Model.IsStarted.ToString().ToLower(), racers: []};
+
+            @foreach(LR.Models.RaceModels.RacerModel racer in Model.Racers){
+                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @racer.Speed, @racer.DSpeed, @racer.AvrSpeed, @racer.IsReady.ToString().ToLower());
+                @:raceData.racers.push(r);
+            }
+            return raceData;
+        }
+    </script>
+}
+<h2>Game</h2>
+
+<div class="raceContainer">
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Length</th><th>Speed</th><th>Status</th></tr>
+        </thead>
+        <tbody data-bind="foreach: racers">
+            <tr>
+                <td data-bind="text: Name"></td>
+                <td data-bind="text: Length"></td>
+                <td data-bind="text: Speed"></td>
+                <td>
+                    <div data-bind="text: IsReady() ? 'Ready' : 'Not Ready'"></div>
+                </td>
+                <td>
+                    <button data-bind="click: changeStatus, text: IsReady() ? 'Not Ready' : 'Ready', visible: userId == Id" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="questionContainer" data-bind="foreach: questions" class="questionContainer">
+    <div data-bind="text: QuestionText" class="questionText"></div>
+    <div data-bind="foreach: variants">
+        <div data-bind="text: Text, click: function(){$parent.sendAnswer(Id, updateRacers)}" class="variantButton"></div>
+    </div>
+</div>
+<div>
+    <div id="cnvRace"></div>
+</div>

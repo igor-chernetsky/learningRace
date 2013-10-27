@@ -1,0 +1,37 @@
+/* line 58, icons/*.png */
+.icons-sprite, .icons-facebook40, .icons-logo, .icons-vkontakte40 {
+  background: url('/../Images/icons-sa6970a37f6.png') no-repeat;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-facebook40 {
+  background-position: 0 -90px;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-logo {
+  background-position: 0 0;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-vkontakte40 {
+  background-position: 0 -50px;
+}
+
+/* line 4, ../sass/image-assets.scss */
+.icons-logo {
+  height: 50px;
+  width: 120px;
+}
+
+/* line 9, ../sass/image-assets.scss */
+.icons-facebook40 {
+  height: 40px;
+  width: 40px;
+}
+
+/* line 14, ../sass/image-assets.scss */
+.icons-vkontakte40 {
+  height: 40px;
+  width: 40px;
+}

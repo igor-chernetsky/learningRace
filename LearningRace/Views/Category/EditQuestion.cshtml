@@ -1,0 +1,58 @@
+﻿@model LR.Models.Question
+@Scripts.Render("~/Scripts/Cutegories/QuestionEditor.js")
+
+@{
+    ViewBag.Title = "EditQuestion";
+}
+
+<h2>EditQuestion</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Question</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CategoryId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.QuestionText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuestionText)
+            @Html.ValidationMessageFor(model => model.QuestionText)
+        </div>
+
+        <p>
+            <input type="button" value="Add Variant" onclick="addVariant()" />
+        </p>
+        <div id="variantsContainer">
+        @if (Model.Variants != null)
+        {
+            for(int i=0;i<Model.Variants.Count;i++)
+            {
+                <div class="variantBlock">
+                    <input type="hidden" name="id" value="@Model.Variants[i].Id" />
+                    <input name='variantValue@(i)' value="@Model.Variants[i].Value" />
+                    @Html.RadioButton("correctVariant", "variantValue" + i, Model.Variants[i].IsCorrect)
+                    <input type="button" onclick="removeVariant(this)" value="Delete" />
+                </div>
+            }
+        }
+        <input type="hidden" value="@(Model.Variants != null ? Model.Variants.Count : 0)" id="variantNumber" />
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Category", "Details", new { id = Model.CategoryId })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

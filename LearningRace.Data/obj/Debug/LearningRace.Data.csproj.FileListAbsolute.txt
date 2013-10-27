@@ -1,0 +1,10 @@
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\LearningRace.Data.dll.config
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\LearningRace.Data.dll
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\LearningRace.Data.pdb
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\EntityFramework.dll
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\EntityFramework.xml
+E:\Projects\LearningRace\LearningRace.Data\obj\Debug\LearningRace.Data.csprojResolveAssemblyReference.cache
+E:\Projects\LearningRace\LearningRace.Data\obj\Debug\LearningRace.Data.dll
+E:\Projects\LearningRace\LearningRace.Data\obj\Debug\LearningRace.Data.pdb
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\LearningRace.Model.dll
+E:\Projects\LearningRace\LearningRace.Data\bin\Debug\LearningRace.Model.pdb

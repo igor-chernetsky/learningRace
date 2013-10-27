@@ -1,0 +1,15 @@
+D:\bin\LearningRace\Entities\bin\Debug\Entities.dll
+D:\bin\LearningRace\Entities\bin\Debug\Entities.pdb
+D:\bin\LearningRace\Entities\obj\Debug\ResolveAssemblyReference.cache
+D:\bin\LearningRace\Entities\obj\Debug\Entities.dll
+D:\bin\LearningRace\Entities\obj\Debug\Entities.pdb
+e:\bin\LearningRace\Entities\bin\Debug\Entities.dll
+e:\bin\LearningRace\Entities\bin\Debug\Entities.pdb
+e:\bin\LearningRace\Entities\obj\Debug\Entities.dll
+e:\bin\LearningRace\Entities\obj\Debug\Entities.pdb
+E:\bin\LearningRace\Entities\obj\Debug\Entities.csprojResolveAssemblyReference.cache
+E:\Projects\LearningRace\Entities\bin\Debug\Entities.dll
+E:\Projects\LearningRace\Entities\bin\Debug\Entities.pdb
+E:\Projects\LearningRace\Entities\obj\Debug\Entities.dll
+E:\Projects\LearningRace\Entities\obj\Debug\Entities.pdb
+E:\Projects\LearningRace\Entities\obj\Debug\Entities.csprojResolveAssemblyReference.cache

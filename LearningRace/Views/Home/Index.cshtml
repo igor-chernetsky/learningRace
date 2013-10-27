@@ -1,0 +1,12 @@
+﻿@section customScripts{
+    <script src="../../Scripts/Cutegories/CategoriesPicker.js" type="text/javascript"></script>
+}
+
+@section featured {
+    <h2>Pick a category</h2>
+}
+@{var childViewData = new ViewDataDictionary(new ViewDataDictionary { { "parentId", null } });}
+@if (ViewBag.Categories != null)
+{
+@Html.Partial("CategoryPicker", ViewBag.Categories as object, childViewData)
+}

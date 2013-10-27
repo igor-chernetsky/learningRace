@@ -1,0 +1,24 @@
+﻿@model IEnumerable<LR.Models.Category>
+
+@section Scripts{
+<script type="text/javascript">
+    var parentId = null;
+
+    function showChildCategories(id) {
+        parentId = id;
+    }
+</script>
+}
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Edit")
+</p>
+@{var childViewData = new ViewDataDictionary(new ViewDataDictionary { { "parentId", null } });}
+@Html.Partial("CategoriesList", Model, childViewData)

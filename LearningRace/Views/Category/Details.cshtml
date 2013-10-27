@@ -1,0 +1,56 @@
+﻿@model LR.Models.Category
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    Details</h2>
+<fieldset>
+    <legend>CategoryBE</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ParentId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentId)
+    </div>
+    <img src="@Model.ImagePath" alt="@Model.Name" />
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question</th><th>Right Variant</th><th></th><th></th>
+                </tr>
+            </thead>
+            @foreach (var question in ViewBag.Questions)
+            {
+                <tr>
+                    <td>@question.QuestionText
+                    </td>
+                    <td>@question.RightVariant.Value
+                    </td>
+                    <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = question.Id, categoryId = Model.Id })
+                    </td>
+                    <td>@Html.ActionLink("Edit", "EditQuestion", new { id = question.Id, categoryId = Model.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Add Question", "EditQuestion", new { categoryId = Model.Id })
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

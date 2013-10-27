@@ -1,0 +1,82 @@
+﻿@font-face {
+    font-family: 'Calculator';
+    src: url('../Content/Fonts/Calculator.ttf');
+}
+
+.questionContainer
+{
+    width:300px;
+    background-color:Gray;
+}
+
+.questionContainer .variantButton
+{
+    width:200px;
+    padding:10px;
+    border: 1px solid black;
+    margin-top:10px;
+    cursor:pointer;
+    border-radius:5px;
+    margin-left:20px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.questionContainer .variantButton.wrong
+{
+    border:red 2px solid;
+}
+
+.questionContainer .variantButton.right
+{
+    border:green 2px solid;
+}
+
+.questionContainer.result
+{
+    width:300px;
+    background-color:White;
+    margin-top:20px;
+}
+
+.questionContainer.result .variantButton
+{
+    width:200px;
+    margin-top:5px;
+    cursor:auto;
+    margin-left:20px;
+    text-align:left;
+    font-weight:bold;
+    border:none;
+    padding:0;
+}
+
+.questionContainer.result .variantButton.wrong
+{
+    color:Red;
+}
+
+.questionContainer.result .variantButton.right
+{
+    color:Green;
+}
+
+.messageContainer
+{
+    display:none;
+}
+
+.w500
+{
+    width:500px;
+}
+
+.w300
+{
+    width:300px;
+}
+
+.leftFloat
+{
+    float:left;
+}

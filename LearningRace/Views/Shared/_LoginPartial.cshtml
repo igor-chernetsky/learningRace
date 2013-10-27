@@ -1,0 +1,54 @@
+﻿@model LearningRace.Models.LoginModel
+@section customScripts{
+    <script src="../../Scripts/Core/Login.js"></script>
+}
+@if (Request.IsAuthenticated) {
+    <text >
+        <ul class="nav navbar-nav">
+            <li>
+                @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })
+            </li>
+            @if(CurrentUser != null)
+            {
+            <li>
+                @Html.ActionLink(CurrentUser.Score.ToString(), "HallOfFame", "Account")
+            </li>
+            }
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                    @Html.AntiForgeryToken()
+                }
+            </li>
+        </ul>
+    </text>
+} else {
+    <ul class="nav navbar-nav">
+        @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", Class = "btn" })</li>*@
+        <li><a class="icons-facebook40 login-icon"></a></li>
+        <li><a class="icons-vkontakte40 login-icon"></a></li>
+        <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log in<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="login-menu">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, htmlAttributes: new { placeholder = "User Name" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, htmlAttributes: new { placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    }
+                </li>
+              </ul>
+            </li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", Class = "btn" })</li>
+    </ul>
+}

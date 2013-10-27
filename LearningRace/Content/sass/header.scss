@@ -1,0 +1,21 @@
+@import "base";
+
+html, body {
+	font-family: arial;
+}
+
+.navbar{
+    .score{
+        float: right;
+    }
+
+    .login-icon{
+        margin: 5px 5px 5px 0;
+        width: 40px;
+        height: 40px;
+    }
+
+    .login-menu{
+        padding: 10px;
+    }
+}

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LR.Models.Category>
+<ul>
+    @foreach (var item in Model)
+    {
+        if (item.ParentId == ViewBag.parentId)
+        {
+        <li class="categoryContainer row">
+            <div class="col-sm-4 image-container">
+                <img src="@item.ImagePath" alt="@item.Name" />
+                <div class="action">
+                    @if (item.ChildCategories.Count>0)
+                    {
+                    <a class="btn btn-default" categoryId="@item.Id" onclick="showChildCategories(this);">Show Child Categories</a>
+                    }
+                    @if (CurrentUser != null && CurrentUser.UserId >= 0 && item.ChildCategories.Count == 0)
+                    {
+                        @Html.ActionLink("Play", "Game", new { categoryId = item.Id }, new { @class = "btn btn-default" })
+                    }
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h3>@item.Name</h3>
+                @if (string.IsNullOrEmpty(item.Description))
+                {
+                    <div>
+                        Description: @item.Description
+                    </div>
+                }
+            </div>
+            @if(item.ChildCategories.Count == 0){
+            <div class="col-sm-4">
+                <h4>Question examples:</h4>
+                <ul>
+                @foreach(string question in item.RandomQuestions)
+                {
+                    <li>@question</li>
+                }
+                </ul>
+            </div>
+            }
+            <div parentId="@item.Id" style="display:none;">
+                @{var childViewData = new ViewDataDictionary(new ViewDataDictionary { { "parentId", item.Id } });}
+                @Html.Partial("CategoryPicker", Model, childViewData)
+            </div>
+        </li>
+        }
+    }
+</ul>

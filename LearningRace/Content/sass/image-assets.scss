@@ -1,0 +1,17 @@
+﻿@import "icons/*.png";
+@include all-icons-sprites;
+
+.icons-logo {
+	height: image-height('icons/logo.png');
+	width: image-width('icons/logo.png');
+}
+
+.icons-facebook40 {
+	height: image-height('icons/facebook40.png');
+	width: image-width('icons/facebook40.png');
+}
+
+.icons-vkontakte40 {
+	height: image-height('icons/vkontakte40.png');
+	width: image-width('icons/vkontakte40.png');
+}

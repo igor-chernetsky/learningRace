@@ -1,0 +1,67 @@
+﻿@model LR.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CategoryBE</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Difficulty)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Difficulty)
+            @Html.ValidationMessageFor(model => model.Difficulty)
+        </div>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model=>model.ParentId, new SelectList(ViewBag.Categories, "Id", "Name"))
+        </div>
+
+        <input type="file" name="CategoryImage" />
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+@if(Model != null){
+    <img src="@Model.ImagePath" alt="@Model.Name" />
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
