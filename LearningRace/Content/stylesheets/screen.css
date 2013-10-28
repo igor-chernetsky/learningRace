@@ -14,11 +14,12 @@ html, body {
 }
 /* line 12, ../sass/header.scss */
 .navbar .login-icon {
+  border: none;
   margin: 5px 5px 5px 0;
   width: 40px;
   height: 40px;
 }
-/* line 18, ../sass/header.scss */
+/* line 19, ../sass/header.scss */
 .navbar .login-menu {
   padding: 10px;
 }

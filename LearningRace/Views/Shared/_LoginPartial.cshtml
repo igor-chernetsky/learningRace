@@ -1,5 +1,4 @@
-﻿@model LearningRace.Models.LoginModel
-@section customScripts{
+﻿@section customScripts{
     <script src="../../Scripts/Core/Login.js"></script>
 }
 @if (Request.IsAuthenticated) {
@@ -11,7 +10,7 @@
             @if(CurrentUser != null)
             {
             <li>
-                @Html.ActionLink(CurrentUser.Score.ToString(), "HallOfFame", "Account")
+                @Html.ActionLink(CurrentUser.Score==null ? "0" : CurrentUser.Score.ToString(), "HallOfFame", "Account")
             </li>
             }
             <li>
@@ -25,8 +24,11 @@
 } else {
     <ul class="nav navbar-nav">
         @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", Class = "btn" })</li>*@
-        <li><a class="icons-facebook40 login-icon"></a></li>
-        <li><a class="icons-vkontakte40 login-icon"></a></li>
+        @*<li><a class="icons-facebook40 login-icon"></a></li>
+        <li><a class="icons-vkontakte40 login-icon"></a></li>*@
+        <li>
+            @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
+        </li>
         <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log in<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -37,12 +39,10 @@
                         @Html.ValidationSummary(true)
 
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.UserName, htmlAttributes: new { placeholder = "User Name" })
-                            @Html.ValidationMessageFor(m => m.UserName)
+                            @Html.TextBox("UserName", "", htmlAttributes: new { placeholder = "User Name" })
                         </div>
                         <div class="form-group">
-                            @Html.PasswordFor(m => m.Password, htmlAttributes: new { placeholder = "Password" })
-                            @Html.ValidationMessageFor(m => m.Password)
+                            @Html.Password("Password", "", htmlAttributes: new { placeholder = "Password" })
                         </div>
                         <input type="submit" value="Log in" class="btn btn-default" />
                     }

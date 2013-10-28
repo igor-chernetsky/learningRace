@@ -23,8 +23,8 @@ namespace LearningRace
             //    consumerSecret: "");
 
             OAuthWebSecurity.RegisterFacebookClient(
-                appId: "11111",
-                appSecret: "111111");
+                appId: "591753204214322",
+                appSecret: "4608e8bdf8a939f3c68835247a6c7b57");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }

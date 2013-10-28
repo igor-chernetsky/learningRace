@@ -239,7 +239,19 @@ namespace LearningRace.Controllers
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+
+                if (DataProvider.UserProfile.AddUser(result.UserName))
+                {
+                    OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, result.UserName);
+                    OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false);
+
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                }
+                return RedirectToLocal(returnUrl);
             }
         }
 
