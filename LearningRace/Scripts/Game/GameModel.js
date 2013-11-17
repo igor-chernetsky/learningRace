@@ -8,21 +8,37 @@ function question(id, questionText, raceId) {
     self.QuestionText = questionText;
     self.RaceId = raceId;
     self.variants = ko.observableArray([]);
+    self.gotVariant = false;
 
     self.addVariant = function (v) {
         self.variants.push(v);
     }
 
-    self.sendAnswer = function (id, callback) {
+    self.sendAnswer = function (variant, callback, questionIndex) {
+        if (self.gotVariant) return;
+        self.gotVariant = true;
         $.ajax({
             url: "/Home/SendAnswer",
-            data: { questionId: self.Id, variantId: id, raceId: self.RaceId },
+            data: { questionId: self.Id, variantId: variant.Id, raceId: self.RaceId },
             contentType: 'application/json',
             dataType: "json",
             success: function (data) {
                 if (callback) callback(data.race.Racers);
+                if (data.result) variant.right(true);
+                else {
+                    variant.wrong(true);
+                    $.each(self.variants(), function (index, item) {
+                        if (item.Id === data.rightId) {
+                            item.right(true);
+                            return false;
+                        }
+                    });
+                }
             }
         });
+        setTimeout(function () {
+            questionIndex(questionIndex() + 1);
+        }, 1000);
     }
 }
 
@@ -31,6 +47,8 @@ function variant(id, text) {
 
     self.Id = id;
     self.Text = text;
+    self.right = ko.observable(false);
+    self.wrong = ko.observable(false);
 }
 
 function racer(id, name, length, speed, dspeed, avrspeed, isReady) {
@@ -52,8 +70,9 @@ function gameModel(userId, qs, rs) {
     self.racers = ko.observableArray([]);
     self.RaceId = rs.id;
     self.Length = rs.length;
-    self.IsStarted = rs.isStarted;
+    self.IsStarted = ko.observable(rs.isStarted);
     self.Version = 0;
+    self.QuestionIndex = ko.observable(0);
 
     var intervalUpdate = null;
 
@@ -68,7 +87,7 @@ function gameModel(userId, qs, rs) {
                 raceController.updateRace(self);
             }
         });
-        if (!intervalUpdate && self.IsStarted) {
+        if (!intervalUpdate && self.IsStarted()) {
             intervalUpdate = setInterval(updateModel, 1000);
         }
     }
@@ -118,7 +137,7 @@ function gameModel(userId, qs, rs) {
             success: function (data) {
                 self.Version = data.Version;
                 self.updateRacers(data.Racers);
-                self.IsStarted = data.IsStarted;
+                self.IsStarted(data.IsStarted);
                 if (!data.IsFinished) {
                     self.updateRaceInfo();
                 } else {

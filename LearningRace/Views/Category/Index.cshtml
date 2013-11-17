@@ -1,15 +1,5 @@
 ﻿@model IEnumerable<LR.Models.Category>
 
-@section Scripts{
-<script type="text/javascript">
-    var parentId = null;
-
-    function showChildCategories(id) {
-        parentId = id;
-    }
-</script>
-}
-
 @{
     ViewBag.Title = "Categories";
     Layout = "~/Views/Shared/_Layout.cshtml";

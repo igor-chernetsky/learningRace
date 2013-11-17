@@ -1,6 +1,7 @@
 ﻿using LR.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,28 @@ namespace LR.Data.Providers
 
         public void AddQuestion(Question question, List<Variant> variants, Guid categoryId)
         {
-            question.Category = Context.Category.First(c => c.Id == categoryId);
-            Context.Questions.Add(question);
-            Context.SaveChanges();
-            variants.ForEach(v => Context.Variants.Add(v));
-            Context.SaveChanges();
+            try
+            {
+                question.Category = Context.Category.First(c => c.Id == categoryId);
+                Context.Questions.Add(question);
+                Context.SaveChanges();
+                variants.ForEach(v => v.Question = question);
+                variants.ForEach(v => Context.Variants.Add(v));
+                Context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        sb.Append(string.Format("Property: {0} Error: {1}",
+                              validationError.PropertyName, validationError.ErrorMessage));
+                    }
+                }
+                throw new Exception(sb.ToString());
+            }
         }
 
         public Question GetQuestionById(Guid id)

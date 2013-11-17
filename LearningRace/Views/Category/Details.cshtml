@@ -3,30 +3,33 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>
-    Details</h2>
-<fieldset>
-    <legend>CategoryBE</legend>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Name)
+<fieldset class="item-details">
+    <legend>@Model.Name</legend>
+    @if (!string.IsNullOrEmpty(Model.Description)){
+    <div class="row">
+        <div class="col-sm-3 caption">
+            @Html.DisplayNameFor(model => model.Description)
+        </div>
+        <div class="col-sm-3">
+            @Html.DisplayFor(model => model.Description)
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+    }
+    @if (Model.ParentId!=null){
+    <div class="row">
+        <div class="col-sm-3 caption">Parent Category</div>
+        <div class="col-sm-3">
+            @Html.DisplayFor(model => model.Parent.Name)
+        </div>
     </div>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.Description)
+    }
+    <div class="row">
+        <div class="col-sm-3">
+            <img src="@Model.ImagePath" alt="@Model.Name" />
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.ParentId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ParentId)
-    </div>
-    <img src="@Model.ImagePath" alt="@Model.Name" />
     <div>
+    @if (ViewBag.Questions.Count > 0){
         <table>
             <thead>
                 <tr>
@@ -40,17 +43,18 @@
                     </td>
                     <td>@question.RightVariant.Value
                     </td>
-                    <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = question.Id, categoryId = Model.Id })
+                    <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = question.Id, categoryId = Model.Id }, new { @class = "btn" })
                     </td>
-                    <td>@Html.ActionLink("Edit", "EditQuestion", new { id = question.Id, categoryId = Model.Id })
+                    <td>@Html.ActionLink("Edit", "EditQuestion", new { id = question.Id, categoryId = Model.Id }, new { @class = "btn" })
                     </td>
                 </tr>
             }
         </table>
-        @Html.ActionLink("Add Question", "EditQuestion", new { categoryId = Model.Id })
+    }
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to List", "Index", "Home", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Add Question", "EditQuestion", new { categoryId = Model.Id }, new { @class = "btn btn-default" })
 </p>

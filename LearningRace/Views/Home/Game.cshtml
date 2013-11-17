@@ -7,7 +7,6 @@
     <script src="~/Scripts/knockout-2.3.0.js"></script>
     <script src="~/Scripts/Game/RaceController.js"></script>
     <script src="~/Scripts/Game/GameModel.js"></script>
-	<link href="../../Content/Game.css" rel="stylesheet" type="text/css" />
     <script>
         var userId = @(CurrentUser.UserId);
         function getQuestions(){
@@ -35,34 +34,37 @@
         }
     </script>
 }
-<h2>Game</h2>
 
-<div class="raceContainer">
-    <table>
-        <thead>
-            <tr><th>Name</th><th>Length</th><th>Speed</th><th>Status</th></tr>
-        </thead>
-        <tbody data-bind="foreach: racers">
-            <tr>
-                <td data-bind="text: Name"></td>
-                <td data-bind="text: Length"></td>
-                <td data-bind="text: Speed"></td>
-                <td>
-                    <div data-bind="text: IsReady() ? 'Ready' : 'Not Ready'"></div>
-                </td>
-                <td>
-                    <button data-bind="click: changeStatus, text: IsReady() ? 'Not Ready' : 'Ready', visible: userId == Id" />
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div id="questionContainer" data-bind="foreach: questions" class="questionContainer">
-    <div data-bind="text: QuestionText" class="questionText"></div>
-    <div data-bind="foreach: variants">
-        <div data-bind="text: Text, click: function(){$parent.sendAnswer(Id, updateRacers)}" class="variantButton"></div>
+<div class="row">
+    <div class="col-sm-5">
+        <div id="cnvRace"></div>
     </div>
-</div>
-<div>
-    <div id="cnvRace"></div>
+    <div class="col-sm-4 raceDetails">
+        <div class="raceContainer">
+            <table>
+                <thead>
+                    <tr><th>Name</th><th>Status</th></tr>
+                </thead>
+                <tbody data-bind="foreach: racers">
+                    <tr>
+                        <td data-bind="text: Name"></td>
+                        <td>
+                            <div data-bind="text: IsReady() ? 'Ready' : 'Not Ready'"></div>
+                        </td>
+                        <td>
+                            <button data-bind="click: changeStatus, text: IsReady() ? 'Not Ready' : 'Ready', visible: userId == Id && !IsStarted()" class="btn" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div data-bind="foreach: questions">
+            <div id="questionContainer" class="questionContainer" data-bind="style: { display: (QuestionIndex() == $index() && IsStarted()) ? 'block' : 'none' }">
+                <div data-bind="text: QuestionText" class="questionText"></div>
+                <div data-bind="foreach: variants">
+                    <div data-bind="text: Text, click: function(){$parent.sendAnswer(this, updateRacers, QuestionIndex)}, css: {wrong:wrong, right:right}" class="variantButton btn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

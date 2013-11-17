@@ -12,4 +12,3 @@ E:\Projects\LearningRace\Utils\bin\Debug\Utils.dll
 E:\Projects\LearningRace\Utils\bin\Debug\Utils.pdb
 E:\Projects\LearningRace\Utils\obj\Debug\Utils.dll
 E:\Projects\LearningRace\Utils\obj\Debug\Utils.pdb
-E:\Projects\LearningRace\Utils\obj\Debug\Utils.csprojResolveAssemblyReference.cache

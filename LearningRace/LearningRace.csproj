@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\CustomViewPage.cs" />
+    <Compile Include="Common\VKontakteAuthenticationClient.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -182,7 +183,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Game.css" />
     <None Include="Content\config.rb" />
     <Content Include="Content\stylesheets\base.css" />
     <Content Include="Content\stylesheets\header.css" />
@@ -254,11 +254,8 @@
     <Content Include="Scripts\Cutegories\QuestionEditor.js" />
     <Content Include="Scripts\easeljs-0.6.1.min.js" />
     <Content Include="Scripts\Game\Core.js" />
-    <Content Include="Scripts\Game\Decoder.js" />
     <Content Include="Scripts\Game\GameModel.js" />
-    <Content Include="Scripts\Game\Race.js" />
     <Content Include="Scripts\Game\RaceController.js" />
-    <Content Include="Scripts\Game\Variants.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -357,9 +354,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\CategoryPicker.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Game1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

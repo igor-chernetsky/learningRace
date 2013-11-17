@@ -14,7 +14,7 @@
             </li>
             }
             <li>
-                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="btn">Log off</a>
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
                     @Html.AntiForgeryToken()
                 }
@@ -23,9 +23,6 @@
     </text>
 } else {
     <ul class="nav navbar-nav">
-        @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", Class = "btn" })</li>*@
-        @*<li><a class="icons-facebook40 login-icon"></a></li>
-        <li><a class="icons-vkontakte40 login-icon"></a></li>*@
         <li>
             @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
         </li>

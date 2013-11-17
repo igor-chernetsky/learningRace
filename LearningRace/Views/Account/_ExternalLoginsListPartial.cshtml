@@ -4,13 +4,15 @@
 {
     using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
     {
+        <ul class="nav navbar-nav">
     @Html.AntiForgeryToken()
-        foreach (AuthenticationClientData p in Model)
+        @foreach (AuthenticationClientData p in Model)
         {
             <li>
             <button type="submit" class="icons-@(p.AuthenticationClient.ProviderName)40 login-icon" name="provider" 
                 value="@(p.AuthenticationClient.ProviderName)" title="Log in using your @p.DisplayName account"></button>
             </li>
         }
+        </ul>
     }
 }

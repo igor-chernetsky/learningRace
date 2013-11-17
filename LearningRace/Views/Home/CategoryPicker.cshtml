@@ -6,26 +6,37 @@
         {
         <li class="categoryContainer row">
             <div class="col-sm-4 image-container">
-                <img src="@item.ImagePath" alt="@item.Name" />
+                <a href="/Category/Details/@item.Id"><img src="@item.ImagePath" alt="@item.Name" /></a>
                 <div class="action">
-                    @if (item.ChildCategories.Count>0)
+                    @if (CurrentUser != null && CurrentUser.UserId >= 0 && User.IsInRole("admin"))
                     {
-                    <a class="btn btn-default" categoryId="@item.Id" onclick="showChildCategories(this);">Show Child Categories</a>
-                    }
-                    @if (CurrentUser != null && CurrentUser.UserId >= 0 && item.ChildCategories.Count == 0)
-                    {
-                        @Html.ActionLink("Play", "Game", new { categoryId = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Edit", "Edit", "Category", new { id = item.Id }, new { @class = "btn btn-default" })
                     }
                 </div>
             </div>
             <div class="col-sm-4">
                 <h3>@item.Name</h3>
-                @if (string.IsNullOrEmpty(item.Description))
+                @if (!string.IsNullOrEmpty(item.Description))
                 {
                     <div>
                         Description: @item.Description
                     </div>
                 }
+                <div class="action">
+                    @if (item.ChildCategories.Count>0)
+                    {
+                    <a class="btn btn-default" categoryId="@item.Id" onclick="showChildCategories(this);">Show Child Categories</a>
+                    }
+                    @if (item.ChildCategories.Count == 0 && item.RandomQuestions.Count > 0)
+                    {
+                        if(CurrentUser != null && CurrentUser.UserId >= 0){
+                            @Html.ActionLink("Play", "Game", new { categoryId = item.Id }, new { @class = "btn btn-default" });
+                        }
+                        else{
+                            <div>Login to play</div>
+                        }
+                    }
+                </div>
             </div>
             @if(item.ChildCategories.Count == 0){
             <div class="col-sm-4">

@@ -1,24 +1,80 @@
 @import "header";
 @import "bootstrap/bootstrap";
 @import "image-assets";
+@import "compass/css3/images";
+
+.content-wrapper{
+    .btn{
+        border: 1px solid gray;
+    }
+}
 
 li.categoryContainer{
+    @include background-image(linear-gradient(top, #d4d4d4 10%, white 50%, white));
     list-style: none;
     clear: both;
     padding-top: 10px;
+    border-top: 1px solid #7f7f7f;
+    overflow: hidden;
+
+    h3{
+        margin-top:5px;
+    }
+
+    div{
+        margin-bottom: 5px;
+    }
 
     .image-container{
         width: 230px;
 
         img{
-            width: 200px;
+            width: 150px;
+            margin-left: 25px;
         }
     }
     .action{
         width: 100%;
         .btn-default{
-            width: 100%;
+            width: 200px;
             margin-top:5px;
         }
     }
 }
+
+.item-details{
+    .row{
+        margin: 10px 0;
+    }
+    .caption{
+        font-weight: bold;
+    }
+    img{
+        width: 200px;
+    }
+}
+
+.raceDetails{
+
+    .questionContainer{
+        .variantButton{
+            width: 100%;
+            margin: 10px 0;
+            background-color: 
+            border: solid 1px gray;
+            &.wrong{
+                border-color: red;
+            }
+            &.right{
+                border-color: green;
+            }
+        }
+    }
+
+    background-color: $lightgreen;
+    color: $textgray;
+    th,td{
+        padding:5px 10px;
+    }
+}
+

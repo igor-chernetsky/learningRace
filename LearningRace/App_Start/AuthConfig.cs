@@ -26,6 +26,10 @@ namespace LearningRace
                 appId: "591753204214322",
                 appSecret: "4608e8bdf8a939f3c68835247a6c7b57");
 
+            OAuthWebSecurity.RegisterClient(new LearningRace.Common.VKontakteAuthenticationClient(
+                "3969828",
+                "utFJZKOoWqKc38Byz713"), "Vkontakte", null);
+
             //OAuthWebSecurity.RegisterGoogleClient();
         }
     }
