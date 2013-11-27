@@ -9,8 +9,23 @@
     }
 }
 
+#body{
+    margin-bottom: 30px;
+}
+
+#footer{
+    background-color: $lightGray;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    .container{
+        padding: 5px;
+        color: #999;
+    }
+}
+
 li.categoryContainer{
-    @include background-image(linear-gradient(top, #d4d4d4 10%, white 50%, white));
+    @include background-image(linear-gradient(top, $lightGray 10%, white 50%, white));
     list-style: none;
     clear: both;
     padding-top: 10px;
@@ -45,6 +60,16 @@ li.categoryContainer{
 .item-details{
     .row{
         margin: 10px 0;
+        textarea{
+            width: 100%;
+        }
+
+        .variantBlock{
+            margin-bottom: 10px;
+            input[type="radio"]{
+                margin: 0 10px;
+            }
+        }
     }
     .caption{
         font-weight: bold;
@@ -54,27 +79,50 @@ li.categoryContainer{
     }
 }
 
-.raceDetails{
+#cnvRace{
+    float: left;
+    width: 33%;
+    min-width: 400px;
+}
 
+.raceDetails{
     .questionContainer{
-        .variantButton{
-            width: 100%;
-            margin: 10px 0;
-            background-color: 
-            border: solid 1px gray;
-            &.wrong{
-                border-color: red;
+        padding-top: 20px;
+
+        .variant-container{
+            position: relative;
+            .variantButton{
+                width: 100%;
+                margin: 10px 0;
+                border: solid 1px gray;
+                &.wrong{
+                    border-color: red;
+                }
+                &.right{
+                    border-color: green;
+                }
             }
-            &.right{
-                border-color: green;
+            .icon{
+                position: absolute;
+                top: 13px;
+                right: -7px;
             }
         }
     }
 
-    background-color: $lightgreen;
+    background-color: $lightGray;
     color: $textgray;
     th,td{
         padding:5px 10px;
     }
+
+    h4{
+        padding: 10px;
+    }
 }
 
+table.table{
+    .btn{
+        margin-left: 10px;
+    }
+}

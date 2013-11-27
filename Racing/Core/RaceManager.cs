@@ -43,7 +43,7 @@ namespace Racing.Core
                 RacerModel racer = new RacerModel();
 
                 racer.Racer = DataProvider.UserProfile.GetUserById(racerId);
-                racer.AvrSpeed = 25;
+                racer.AvrSpeed = 5;
                 racer.ReadyTime = 5;
                 racer.Speed = 5;
 

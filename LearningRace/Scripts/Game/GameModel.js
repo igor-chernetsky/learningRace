@@ -77,18 +77,20 @@ function gameModel(userId, qs, rs) {
     var intervalUpdate = null;
 
     function updateModel() {
-        ko.utils.arrayFirst(self.racers(), function (item) {
-            if (item().Speed() > item().AvrSpeed)
-                item().Speed(item().Speed() - item().Dspeed);
-            else if (item().Speed() < item().AvrSpeed)
-                item().Speed(item().Speed() + item().Dspeed);
-            if (item().Length() < self.Length) {
-                item().Length(item().Length() + item().Speed());
-                raceController.updateRace(self);
+        if (self.IsStarted()) {
+            ko.utils.arrayFirst(self.racers(), function (item) {
+                if (item().Speed() > item().AvrSpeed)
+                    item().Speed(item().Speed() - item().Dspeed);
+                else if (item().Speed() < item().AvrSpeed)
+                    item().Speed(item().Speed() + item().Dspeed);
+                if (item().Length() < self.Length) {
+                    item().Length(item().Length() + item().Speed());
+                    raceController.updateRace(self);
+                }
+            });
+            if (!intervalUpdate) {
+                intervalUpdate = setInterval(updateModel, 1000);
             }
-        });
-        if (!intervalUpdate && self.IsStarted()) {
-            intervalUpdate = setInterval(updateModel, 1000);
         }
     }
 
@@ -119,8 +121,10 @@ function gameModel(userId, qs, rs) {
         ko.utils.arrayFirst(self.racers(), function (item) {
             $(racers).each(function (index, rsr) {
                 if (item().Id === rsr.Racer.UserId) {
-                    item().Length(rsr.Length);
-                    item().Speed(rsr.Speed);
+                    if (self.IsStarted()) {
+                        item().Length(rsr.Length);
+                        item().Speed(rsr.Speed);
+                    }
                     item().IsReady(rsr.IsReady);
                     return;
                 }

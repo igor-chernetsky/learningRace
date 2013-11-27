@@ -27,7 +27,7 @@
             var raceData = { id: '@Model.RaceId', length: @Model.Length, isStarted: @Model.IsStarted.ToString().ToLower(), racers: []};
 
             @foreach(LR.Models.RaceModels.RacerModel racer in Model.Racers){
-                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @racer.Speed, @racer.DSpeed, @racer.AvrSpeed, @racer.IsReady.ToString().ToLower());
+                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @(racer.Length == 0 ? 0 : racer.Speed), @racer.DSpeed, @racer.AvrSpeed, @racer.IsReady.ToString().ToLower());
                 @:raceData.racers.push(r);
             }
             return raceData;
@@ -36,9 +36,7 @@
 }
 
 <div class="row">
-    <div class="col-sm-5">
-        <div id="cnvRace"></div>
-    </div>
+    <div id="cnvRace"></div>
     <div class="col-sm-4 raceDetails">
         <div class="raceContainer">
             <table>
@@ -60,9 +58,16 @@
         </div>
         <div data-bind="foreach: questions">
             <div id="questionContainer" class="questionContainer" data-bind="style: { display: (QuestionIndex() == $index() && IsStarted()) ? 'block' : 'none' }">
-                <div data-bind="text: QuestionText" class="questionText"></div>
+                <div>
+                    Answer question below to increase speed of your car:
+                </div>
+                <h4 data-bind="text: QuestionText" class="questionText"></h4>
                 <div data-bind="foreach: variants">
-                    <div data-bind="text: Text, click: function(){$parent.sendAnswer(this, updateRacers, QuestionIndex)}, css: {wrong:wrong, right:right}" class="variantButton btn"></div>
+                    <div class="variant-container">
+                        <div data-bind="text: Text, click: function(){$parent.sendAnswer(this, updateRacers, QuestionIndex)}, css: {wrong:wrong, right:right}" class="variantButton btn"></div>
+                        <div class="icon icons-red-cross" data-bind="style:{display: wrong() ? 'block' : 'none'}"></div>
+                        <div class="icon icons-green-checkmark" data-bind="style:{display: right() ? 'block' : 'none'}"></div>
+                    </div>
                 </div>
             </div>
         </div>

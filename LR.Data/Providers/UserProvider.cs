@@ -34,7 +34,7 @@ namespace LR.Data.Providers
 
         public List<UserProfile> GetUsers()
         {
-            List<UserProfile> result = Context.UserProfile.OrderBy(u => u.Score).ToList();
+            List<UserProfile> result = Context.UserProfile.OrderByDescending(u => u.Score).ToList();
             return result;
         }
 

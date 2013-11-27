@@ -25,7 +25,8 @@ namespace LearningRace
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            WebSecurity.InitializeDatabaseConnection("LearningRaceDev", "UserProfile", "UserId", "UserName", true);
+            //return;
+            WebSecurity.InitializeDatabaseConnection("LearningRaceTest", "UserProfile", "UserId", "UserName", true);
 
             if (!Roles.RoleExists("admin"))
             {

@@ -19,8 +19,7 @@
             @Html.LabelFor(model => model.QuestionText) :
             </div>
             <div class="col-sm-3">
-                @Html.EditorFor(model => model.QuestionText)
-                @Html.ValidationMessageFor(model => model.QuestionText)
+                <textarea name="QuestionText" id="QuestionText" required rows="4">@Model.QuestionText</textarea>
             </div>
             
             <div class="col-sm-3">
@@ -50,7 +49,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to Category", "Details", new { id = Model.CategoryId })
+    @Html.ActionLink("Back to Category", "Details", new { id = Model.CategoryId }, new { @class="btn btn-default" })
 </div>
 
 @section Scripts {

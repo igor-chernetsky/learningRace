@@ -2,7 +2,7 @@
     variantNum = $('#variantNumber').val();
     $newVariant = $('<div class="variantBlock">' +
                 '<input type="hidden" name="id" value="@variant.Id" />' +
-                '<input name="variantValue' + variantNum + '" />' +
+                '<input name="variantValue' + variantNum + '" required />' +
                 '<input type="radio" name="correctVariant" value="variantValue' + variantNum + '" />' +
                 '<input type="button" onclick="removeVariant(this)" value="Delete"></div>');
     $('#variantsContainer').append($newVariant);

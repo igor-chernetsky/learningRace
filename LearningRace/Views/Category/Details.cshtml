@@ -30,10 +30,10 @@
     </div>
     <div>
     @if (ViewBag.Questions.Count > 0){
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Question</th><th>Right Variant</th><th></th><th></th>
+                    <th>Question</th><th>Right Variant</th><th></th>
                 </tr>
             </thead>
             @foreach (var question in ViewBag.Questions)
@@ -43,9 +43,8 @@
                     </td>
                     <td>@question.RightVariant.Value
                     </td>
-                    <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = question.Id, categoryId = Model.Id }, new { @class = "btn" })
-                    </td>
-                    <td>@Html.ActionLink("Edit", "EditQuestion", new { id = question.Id, categoryId = Model.Id }, new { @class = "btn" })
+                    <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = question.Id, categoryId = Model.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Edit", "EditQuestion", new { id = question.Id, categoryId = Model.Id }, new { @class = "btn btn-default" })
                     </td>
                 </tr>
             }

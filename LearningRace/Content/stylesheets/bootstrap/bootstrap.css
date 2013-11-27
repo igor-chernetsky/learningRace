@@ -4821,8 +4821,8 @@ input[type="button"].btn-block {
 
 /* line 357, ../../sass/bootstrap/_navbar.scss */
 .navbar-default {
-  background-color: #e8fde7;
-  border-color: #cbfac8;
+  background-color: #ececec;
+  border-color: #dbdbdb;
 }
 /* line 361, ../../sass/bootstrap/_navbar.scss */
 .navbar-default .navbar-brand {
@@ -4849,7 +4849,7 @@ input[type="button"].btn-block {
 /* line 387, ../../sass/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #555555;
-  background-color: #cbfac8;
+  background-color: #dbdbdb;
 }
 /* line 395, ../../sass/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
@@ -4871,7 +4871,7 @@ input[type="button"].btn-block {
 /* line 414, ../../sass/bootstrap/_navbar.scss */
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #c8fac6;
+  border-color: #dadada;
 }
 /* line 422, ../../sass/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
@@ -4881,7 +4881,7 @@ input[type="button"].btn-block {
 }
 /* line 431, ../../sass/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #cbfac8;
+  background-color: #dbdbdb;
   color: #555555;
 }
 /* line 434, ../../sass/bootstrap/_navbar.scss */
@@ -4907,7 +4907,7 @@ input[type="button"].btn-block {
   /* line 460, ../../sass/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #555555;
-    background-color: #cbfac8;
+    background-color: #dbdbdb;
   }
   /* line 468, ../../sass/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {

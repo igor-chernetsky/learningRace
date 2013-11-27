@@ -1,16 +1,26 @@
-/* line 58, icons/*.png */
-.icons-sprite, .icons-facebook40, .icons-logo, .icons-vkontakte40 {
-  background: url('/../Images/icons-sa6970a37f6.png') no-repeat;
+/* line 74, icons/*.png */
+.icons-sprite, .icons-facebook40, .icons-green-checkmark, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
+  background: url('/../Images/icons-sced75432af.png') no-repeat;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-facebook40 {
+  background-position: 0 -142px;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-green-checkmark {
   background-position: 0 -90px;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-logo {
   background-position: 0 0;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-red-cross {
+  background-position: 0 -116px;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
@@ -34,4 +44,16 @@
 .icons-vkontakte40 {
   height: 40px;
   width: 40px;
+}
+
+/* line 19, ../sass/image-assets.scss */
+.icons-red-cross {
+  height: 26px;
+  width: 21px;
+}
+
+/* line 24, ../sass/image-assets.scss */
+.icons-green-checkmark {
+  height: 26px;
+  width: 28px;
 }

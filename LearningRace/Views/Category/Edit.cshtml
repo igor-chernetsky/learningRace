@@ -15,8 +15,7 @@
                 @Html.LabelFor(model => model.Name)
             </div>
             <div class="col-sm-3">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+                <input name="Name" id="Name" required value="@Model.Name" />
             </div>
         </div>
 
@@ -25,8 +24,7 @@
                 @Html.LabelFor(model => model.Description)
             </div>
             <div class="col-sm-3">
-                @Html.EditorFor(model => model.Description)
-                @Html.ValidationMessageFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description)
             </div>
         </div>
 

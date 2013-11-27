@@ -6,7 +6,7 @@
 
 <h2>Hall Of Fame</h2>
 
-<table>
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.UserName)
@@ -28,8 +28,8 @@
         <td>
             @if (User.IsInRole("admin"))
             {
-                @Html.ActionLink(item.isAdmin ? "Remove Admin" : "Make an Admin", "ChangeRole", new { id = item.UserId, role = "admin" })
-                @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId })
+                @Html.ActionLink(item.isAdmin ? "Remove Admin" : "Make an Admin", "ChangeRole", new { id = item.UserId, role = "admin" }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId }, new { @class = "btn btn-default" })
             }
         </td>
     </tr>

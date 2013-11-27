@@ -1,7 +1,0 @@
-E:\Projects\LearningRace\LearningRace.Models\bin\Debug\LR.Model.dll.config
-E:\Projects\LearningRace\LearningRace.Models\bin\Debug\LR.Model.dll
-E:\Projects\LearningRace\LearningRace.Models\bin\Debug\LR.Model.pdb
-E:\Projects\LearningRace\LearningRace.Models\bin\Debug\EntityFramework.dll
-E:\Projects\LearningRace\LearningRace.Models\bin\Debug\EntityFramework.xml
-E:\Projects\LearningRace\LearningRace.Models\obj\Debug\LR.Model.dll
-E:\Projects\LearningRace\LearningRace.Models\obj\Debug\LR.Model.pdb

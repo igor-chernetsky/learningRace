@@ -47,6 +47,7 @@
                     <li>@question</li>
                 }
                 </ul>
+                @Html.ActionLink("Add Question", "EditQuestion", "Category", new { categoryId = item.Id }, new { @class = "btn btn-default" })
             </div>
             }
             <div parentId="@item.Id" style="display:none;">

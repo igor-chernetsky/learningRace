@@ -114,6 +114,10 @@ namespace LearningRace.Controllers
                     variants.Add(newVariant);
                 }
             }
+            if (string.IsNullOrEmpty(newQuestion.QuestionText) || variants.Count == 0)
+            {
+                return View();
+            }
             if (!id.HasValue || id == Guid.Empty)
             {
                 DataProvider.Questions.AddQuestion(newQuestion, variants, new Guid(collection.Get("CategoryId")));

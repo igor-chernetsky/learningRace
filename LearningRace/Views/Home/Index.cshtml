@@ -3,7 +3,12 @@
 }
 
 @section featured {
-    <h2>Pick a category</h2>
+    <h2>Pick a category 
+        @if (CurrentUser != null && CurrentUser.UserId >= 0 && User.IsInRole("admin"))
+        {
+            @Html.ActionLink("Create New Category", "Edit", "Category", null, new { @class = "btn btn-default"})
+        }
+    </h2>
 }
 @{var childViewData = new ViewDataDictionary(new ViewDataDictionary { { "parentId", null } });}
 @if (ViewBag.Categories != null)
