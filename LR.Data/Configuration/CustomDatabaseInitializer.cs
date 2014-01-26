@@ -87,6 +87,7 @@ namespace LR.Data.Configuration
             newCategory.Description = description;
             if (parent != null) newCategory.Parent = parent;
             context.Category.Add(newCategory);
+            newCategory.IsVisible = true;
             return newCategory;
         }
 

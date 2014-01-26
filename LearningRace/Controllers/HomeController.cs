@@ -22,7 +22,7 @@ namespace LearningRace.Controllers
             List<Category> categories = DataProvider.Category.GetAllCategories(true);
             categories.ForEach(c => InitializeCategoryImage(c));
             ViewBag.Categories = categories;
-            
+            ViewBag.IsAdmin = User.IsInRole("admin");
             return View();
         }
 
@@ -41,7 +41,7 @@ namespace LearningRace.Controllers
         [Authorize]
         public ActionResult Game(Guid categoryId)
         {
-            ViewBag.questionList = DataProvider.Questions.GetQuestionForCategory(categoryId, true);
+            ViewBag.questionList = DataProvider.Questions.GetQuestionForCategory(categoryId, true, true);
             ViewBag.categoryId = categoryId;
             RaceModel race = RaceManager.AddRacer(WebSecurity.CurrentUserId, categoryId);
 

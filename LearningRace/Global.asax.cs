@@ -21,12 +21,12 @@ namespace LearningRace
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            WebSecurity.InitializeDatabaseConnection("LearningRaceTest", "UserProfile", "UserId", "UserName", true);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             //return;
-            WebSecurity.InitializeDatabaseConnection("LearningRaceTest", "UserProfile", "UserId", "UserName", true);
 
             if (!Roles.RoleExists("admin"))
             {

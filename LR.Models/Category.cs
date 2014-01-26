@@ -57,5 +57,7 @@ namespace LR.Models
         public int Difficulty { get; set; }
 
         public string ImagePath { get; set; }
+
+        public bool IsVisible { get; set; }
     }
 }

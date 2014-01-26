@@ -3,3 +3,8 @@ $lightGray: #ECECEC;
 
 //------grays
 $textgray: #333333;
+$lineGray: #d3d3d3;
+
+.grayBottom{
+    border-bottom: 1px solid $lineGray;
+}

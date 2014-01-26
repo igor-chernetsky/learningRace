@@ -9,19 +9,47 @@
     }
 }
 
+html{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+body{
+    background-image: url('../../images/asphalt.png');
+    position: absolute;
+    top:0;
+    bottom: 0;
+    width: 100%;
+}
+
 #body{
-    margin-bottom: 30px;
+    background: white;
+    min-height: 100%;
+    min-height: calc(100% - 53px);
+    padding-bottom: 30px;
+    position: relative;
+}
+
+.playground{
+    width: 800px;
+    background-color: $lightGray !important;
 }
 
 #footer{
     background-color: $lightGray;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
+    border-top: 1px solid #ccc;
     .container{
         padding: 5px;
         color: #999;
     }
+    left: 0;
+    right: 0;
 }
 
 li.categoryContainer{
@@ -47,13 +75,26 @@ li.categoryContainer{
             width: 150px;
             margin-left: 25px;
         }
+
+		.action{
+			margin-top: 5px;
+		}
     }
     .action{
         width: 100%;
         .btn-default{
             width: 200px;
             margin-top:5px;
+			&.small{
+				width: 80px;
+				margin: 0 5px;
+			}
         }
+    }
+
+    ul.questions{
+        margin-bottom: 5px;
+        padding-left: 5px;
     }
 }
 
@@ -74,8 +115,17 @@ li.categoryContainer{
     .caption{
         font-weight: bold;
     }
-    img{
+    img.caption{
         width: 200px;
+    }
+}
+
+.questionShort{
+    max-height: 40px;
+    overflow: hidden;
+
+    &:hover{
+        max-height: none;
     }
 }
 
@@ -86,6 +136,9 @@ li.categoryContainer{
 }
 
 .raceDetails{
+    float: left;
+    width: 400px;
+
     .questionContainer{
         padding-top: 20px;
 

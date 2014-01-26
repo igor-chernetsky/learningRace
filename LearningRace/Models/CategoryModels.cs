@@ -24,5 +24,8 @@ namespace LearningRace.Models
 
         [Display(Name = "Category Difficulty")]
         public int Difficulty { get; set; }
+
+        [Display(Name = "Is Visible")]
+        public bool IsVisible { get; set; }
     }
 }

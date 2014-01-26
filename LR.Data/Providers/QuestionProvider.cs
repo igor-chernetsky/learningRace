@@ -10,7 +10,7 @@ namespace LR.Data.Providers
 {
     public class QuestionProvider : MainProvider
     {
-        public List<Question> GetQuestionForCategory(Guid categoryId, bool withVariants)
+        public List<Question> GetQuestionForCategory(Guid categoryId, bool withVariants, bool randomize = false)
         {
             List<Question> result = null;
             result = Context.Questions.Where(q => q.Category.Id == categoryId).ToList();
@@ -19,6 +19,10 @@ namespace LR.Data.Providers
                 result.ForEach(q => q.Variants = GetRandomTopVariantsForQuestion(q.Id, 5));
             }
             result.ForEach(q => q.RightVariant = Context.Variants.FirstOrDefault(v => v.Question.Id == q.Id && v.IsCorrect));
+            if (randomize)
+            {
+                result = result.OrderBy(v => Guid.NewGuid()).ToList();
+            }
             return result;
         }
 
@@ -58,9 +62,8 @@ namespace LR.Data.Providers
 
         public List<Question> GetRandomQuestions(Guid categoryId, int questionCount)
         {
-            Random rnd = new Random();
             List<Question> result = null;
-            result = Context.Questions.Where(q => q.Category.Id == categoryId).AsEnumerable().OrderBy(v => rnd.Next()).Take(questionCount).ToList();
+            result = Context.Questions.Where(q => q.Category.Id == categoryId).AsEnumerable().OrderBy(v => Guid.NewGuid()).Take(questionCount).ToList();
             return result;
         }
 
@@ -91,13 +94,11 @@ namespace LR.Data.Providers
 
         public List<Variant> GetRandomTopVariantsForQuestion(Guid questionId, int variantCount)
         {
-            Random rnd = new Random();
-
             Variant rightVariant = Context.Variants.First(v => v.Question.Id == questionId && v.IsCorrect);
-            List<Variant> result = Context.Variants.Where(v => v.Question.Id == questionId && !v.IsCorrect).AsEnumerable().OrderBy(v => rnd.Next()).
+            List<Variant> result = Context.Variants.Where(v => v.Question.Id == questionId && !v.IsCorrect).AsEnumerable().OrderBy(v => Guid.NewGuid()).
                 Take(variantCount).ToList();
             result.Add(rightVariant);
-            result.AsEnumerable().OrderBy(v => rnd.Next());
+            result = result.AsEnumerable().OrderBy(v => Guid.NewGuid()).ToList();
             return result;
         }
 

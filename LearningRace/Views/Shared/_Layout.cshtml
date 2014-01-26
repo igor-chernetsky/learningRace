@@ -32,15 +32,15 @@
                 </div>
             </div>
         </header>
-        <div id="body" class="container">
+        <div id="body" class="container @ViewBag.BodyClass">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
+            <footer id="footer">
+                <div class="container">&copy; 2013 - Learning race by BlackCross</div>
+            </footer>
         </div>
-        <footer id="footer">
-            <div class="container">&copy; 2013 - Learning race by BlackCross</div>
-        </footer>
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)

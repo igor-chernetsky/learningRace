@@ -1,3 +1,8 @@
+/* line 8, ../sass/base.scss */
+.grayBottom {
+  border-bottom: 1px solid lightgrey;
+}
+
 /* line 3, ../sass/header.scss */
 html, body {
   font-family: arial;
@@ -4507,7 +4512,6 @@ input[type="button"].btn-block {
   position: relative;
   z-index: 1000;
   min-height: 50px;
-  margin-bottom: 20px;
   border: 1px solid transparent;
 }
 /* line 21, ../sass/bootstrap/_mixins.scss */
@@ -7483,34 +7487,39 @@ td.visible-print {
     display: none !important;
   }
 }
-/* line 74, icons/*.png */
-.icons-sprite, .icons-facebook40, .icons-green-checkmark, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
-  background: url('/../Images/icons-sced75432af.png') no-repeat;
+/* line 82, icons/*.png */
+.icons-sprite, .icons-facebook40, .icons-green-checkmark, .icons-icons, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
+  background: url('/../Images/icons-s65ed7e551f.png') no-repeat;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-facebook40 {
-  background-position: 0 -142px;
+  background-position: 0 -922px;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-green-checkmark {
-  background-position: 0 -90px;
+  background-position: 0 -870px;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
-.icons-logo {
+.icons-icons {
   background-position: 0 0;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-logo {
+  background-position: 0 -780px;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-red-cross {
-  background-position: 0 -116px;
+  background-position: 0 -896px;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-vkontakte40 {
-  background-position: 0 -50px;
+  background-position: 0 -830px;
 }
 
 /* line 4, ../sass/image-assets.scss */
@@ -7549,24 +7558,55 @@ td.visible-print {
 }
 
 /* line 12, ../sass/screen.scss */
-#body {
-  margin-bottom: 30px;
+html {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-/* line 16, ../sass/screen.scss */
-#footer {
-  background-color: #ececec;
-  position: fixed;
+/* line 20, ../sass/screen.scss */
+body {
+  background-image: url("../../images/asphalt.png");
+  position: absolute;
+  top: 0;
   bottom: 0;
   width: 100%;
 }
-/* line 21, ../sass/screen.scss */
+
+/* line 28, ../sass/screen.scss */
+#body {
+  background: white;
+  min-height: 100%;
+  min-height: calc(100% - 53px);
+  padding-bottom: 30px;
+  position: relative;
+}
+
+/* line 36, ../sass/screen.scss */
+.playground {
+  width: 800px;
+  background-color: #ececec !important;
+}
+
+/* line 41, ../sass/screen.scss */
+#footer {
+  background-color: #ececec;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  left: 0;
+  right: 0;
+}
+/* line 47, ../sass/screen.scss */
 #footer .container {
   padding: 5px;
   color: #999;
 }
 
-/* line 27, ../sass/screen.scss */
+/* line 55, ../sass/screen.scss */
 li.categoryContainer {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(10%, #ececec), color-stop(50%, #ffffff), color-stop(100%, #ffffff));
   background-image: -webkit-linear-gradient(top, #ececec 10%, #ffffff 50%, #ffffff);
@@ -7579,108 +7619,134 @@ li.categoryContainer {
   border-top: 1px solid #7f7f7f;
   overflow: hidden;
 }
-/* line 35, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 li.categoryContainer h3 {
   margin-top: 5px;
 }
-/* line 39, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 li.categoryContainer div {
   margin-bottom: 5px;
 }
-/* line 43, ../sass/screen.scss */
+/* line 71, ../sass/screen.scss */
 li.categoryContainer .image-container {
   width: 230px;
 }
-/* line 46, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 li.categoryContainer .image-container img {
   width: 150px;
   margin-left: 25px;
 }
-/* line 51, ../sass/screen.scss */
+/* line 79, ../sass/screen.scss */
+li.categoryContainer .image-container .action {
+  margin-top: 5px;
+}
+/* line 83, ../sass/screen.scss */
 li.categoryContainer .action {
   width: 100%;
 }
-/* line 53, ../sass/screen.scss */
+/* line 85, ../sass/screen.scss */
 li.categoryContainer .action .btn-default {
   width: 200px;
   margin-top: 5px;
 }
+/* line 88, ../sass/screen.scss */
+li.categoryContainer .action .btn-default.small {
+  width: 80px;
+  margin: 0 5px;
+}
+/* line 95, ../sass/screen.scss */
+li.categoryContainer ul.questions {
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
 
-/* line 61, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 .item-details .row {
   margin: 10px 0;
 }
-/* line 63, ../sass/screen.scss */
+/* line 104, ../sass/screen.scss */
 .item-details .row textarea {
   width: 100%;
 }
-/* line 67, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 .item-details .row .variantBlock {
   margin-bottom: 10px;
 }
-/* line 69, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 .item-details .row .variantBlock input[type="radio"] {
   margin: 0 10px;
 }
-/* line 74, ../sass/screen.scss */
+/* line 115, ../sass/screen.scss */
 .item-details .caption {
   font-weight: bold;
 }
-/* line 77, ../sass/screen.scss */
-.item-details img {
+/* line 118, ../sass/screen.scss */
+.item-details img.caption {
   width: 200px;
 }
 
-/* line 82, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
+.questionShort {
+  max-height: 40px;
+  overflow: hidden;
+}
+/* line 127, ../sass/screen.scss */
+.questionShort:hover {
+  max-height: none;
+}
+
+/* line 132, ../sass/screen.scss */
 #cnvRace {
   float: left;
   width: 33%;
   min-width: 400px;
 }
 
-/* line 88, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 .raceDetails {
+  float: left;
+  width: 400px;
   background-color: #ececec;
   color: #333333;
 }
-/* line 89, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 .raceDetails .questionContainer {
   padding-top: 20px;
 }
-/* line 92, ../sass/screen.scss */
+/* line 145, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container {
   position: relative;
 }
-/* line 94, ../sass/screen.scss */
+/* line 147, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton {
   width: 100%;
   margin: 10px 0;
   border: solid 1px gray;
 }
-/* line 98, ../sass/screen.scss */
+/* line 151, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton.wrong {
   border-color: red;
 }
-/* line 101, ../sass/screen.scss */
+/* line 154, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton.right {
   border-color: green;
 }
-/* line 105, ../sass/screen.scss */
+/* line 158, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .icon {
   position: absolute;
   top: 13px;
   right: -7px;
 }
-/* line 115, ../sass/screen.scss */
+/* line 168, ../sass/screen.scss */
 .raceDetails th, .raceDetails td {
   padding: 5px 10px;
 }
-/* line 119, ../sass/screen.scss */
+/* line 172, ../sass/screen.scss */
 .raceDetails h4 {
   padding: 10px;
 }
 
-/* line 125, ../sass/screen.scss */
+/* line 178, ../sass/screen.scss */
 table.table .btn {
   margin-left: 10px;
 }

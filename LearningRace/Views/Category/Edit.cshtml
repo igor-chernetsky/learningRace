@@ -48,6 +48,16 @@
                 @Html.DropDownListFor(model=>model.ParentId, new SelectList(ViewBag.Categories, "Id", "Name"))
             </div>
         </div>
+
+		<div class="row">
+			<div class="col-sm-3 caption">
+                @Html.LabelFor(model => model.IsVisible)
+            </div>
+            <div class="col-sm-3">
+				@Html.CheckBoxFor(model=>model.IsVisible)
+            </div>
+		</div>
+
         <div class="row">
             <div class="col-sm-3">
                 @if(Model != null){

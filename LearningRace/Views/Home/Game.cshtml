@@ -1,6 +1,7 @@
 ﻿@model LR.Models.RaceModels.RaceModel
 @{
     ViewBag.Title = "Game";
+    ViewBag.BodyClass = "playground";
 }
 @section customScripts{
     <script src="~/Scripts/kinetic-v4.5.5.min.js"></script>
@@ -13,7 +14,7 @@
             var qs = [];
             @foreach (LR.Models.Question sq in @ViewBag.questionList)
             {
-                @:var q = new question('@sq.Id', '@sq.QuestionText', '@Model.RaceId');
+                @:var q = new question('@sq.Id', '@Html.Raw(sq.QuestionText)', '@Model.RaceId');
                 foreach (LR.Models.Variant sv in sq.Variants)
                 {
                     @:var v = new variant('@sv.Id', '@sv.Value');
@@ -27,7 +28,7 @@
             var raceData = { id: '@Model.RaceId', length: @Model.Length, isStarted: @Model.IsStarted.ToString().ToLower(), racers: []};
 
             @foreach(LR.Models.RaceModels.RacerModel racer in Model.Racers){
-                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @(racer.Length == 0 ? 0 : racer.Speed), @racer.DSpeed, @racer.AvrSpeed, @racer.IsReady.ToString().ToLower());
+                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @(racer.Length == 0 ? 0 : racer.Speed), @racer.RaceCar.DSpeed, @racer.RaceCar.AvrSpeed, @racer.IsReady.ToString().ToLower());
                 @:raceData.racers.push(r);
             }
             return raceData;
@@ -50,18 +51,23 @@
                             <div data-bind="text: IsReady() ? 'Ready' : 'Not Ready'"></div>
                         </td>
                         <td>
+                            <a data-bind="visible: userId == Id && IsFinished()" class="btn btn-default" href="/Account/HallOfFame" >Finish the race</a>
                             <button data-bind="click: changeStatus, text: IsReady() ? 'Not Ready' : 'Ready', visible: userId == Id && !IsStarted()" class="btn" />
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div data-bind="visible: RaceMessage(), text:RaceMessage()"></div>
+            <div data-bind="visible: (QuestionIndex() >= questions().length && IsStarted() && !IsFinished())">
+                There no more question for you, wait until race is over.
+            </div>
         </div>
         <div data-bind="foreach: questions">
-            <div id="questionContainer" class="questionContainer" data-bind="style: { display: (QuestionIndex() == $index() && IsStarted()) ? 'block' : 'none' }">
+            <div id="questionContainer" class="questionContainer" data-bind="visible: (QuestionIndex() == $index() && IsStarted())">
                 <div>
                     Answer question below to increase speed of your car:
                 </div>
-                <h4 data-bind="text: QuestionText" class="questionText"></h4>
+                <h4 data-bind="html: QuestionText" class="questionText"></h4>
                 <div data-bind="foreach: variants">
                     <div class="variant-container">
                         <div data-bind="text: Text, click: function(){$parent.sendAnswer(this, updateRacers, QuestionIndex)}, css: {wrong:wrong, right:right}" class="variantButton btn"></div>

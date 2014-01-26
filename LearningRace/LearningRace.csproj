@@ -246,7 +246,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\Cars\BasicCar.png" />
+    <Content Include="Images\icons\header-bg.gif" />
+    <Content Include="Images\icons\icons.png" />
     <Content Include="Images\icons\logo.png" />
+    <Content Include="Images\icons\resize.gif" />
     <Content Include="Images\race\finish.png" />
     <Content Include="Scripts\Core\Login.js" />
     <Content Include="Scripts\Core\Utils.js" />
@@ -274,6 +277,9 @@
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\TinyEditor\tiny.editor.js" />
+    <Content Include="Scripts\TinyEditor\tiny.editor.packed.js" />
+    <Content Include="Content\stylesheets\tinyeditor.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -17,7 +17,8 @@ namespace LearningRace.Models.ModelManager
                 Name = model.Name,
                 Parent = model.ParentId == Guid.Empty ? null : DataProvider.Category.GetCategoryById(model.ParentId.Value),
                 Description = model.Description,
-                Difficulty = model.Difficulty
+                Difficulty = model.Difficulty,
+                IsVisible = model.IsVisible
             };
             return result;
         }

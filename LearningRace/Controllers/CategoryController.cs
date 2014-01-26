@@ -14,29 +14,31 @@ namespace LearningRace.Controllers
 {
     public class CategoryController : Controller
     {
-        [Authorize(Roles="admin")]
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             IEnumerable<Category> categories = DataProvider.Category.GetAllCategories();
             ViewBag.parentId = null;
             return View(categories);
         }
-        
+
+        [Authorize(Roles = "admin")]
         public ActionResult Details(Guid id)
         {
             Category category = DataProvider.Category.GetCategoryById(id);
-            ViewBag.Questions = DataProvider.Questions.GetQuestionForCategory(id, false );
+            ViewBag.Questions = DataProvider.Questions.GetQuestionForCategory(id, false);
 
             InitializeCategoryImage(category);
 
             return View(category);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(Guid? id)
         {
-            Category category = id==null ? null : DataProvider.Category.GetCategoryById(id.Value);
+            Category category = id == null ? new Category() : DataProvider.Category.GetCategoryById(id.Value);
             List<Category> allCategories = new List<Category>() { new Category() { Name = "Not selected" } };
-            allCategories.AddRange(DataProvider.Category.GetAllCategories());
+            allCategories.AddRange(GetOrderedCategoriesList());
             ViewBag.Categories = allCategories;
 
             if (category != null)
@@ -47,6 +49,7 @@ namespace LearningRace.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Edit(EditCategoryViewModel model)
         {
@@ -64,9 +67,12 @@ namespace LearningRace.Controllers
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
                     var path = Path.Combine(Server.MapPath("~/Images/Categories"), newCategroy.Id.ToString() + ".png");
-                    Request.Files[0].SaveAs(path);
+                    if (!string.IsNullOrEmpty(Request.Files[0].FileName))
+                    {
+                        Request.Files[0].SaveAs(path);
+                    }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -74,14 +80,16 @@ namespace LearningRace.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(Guid id)
         {
             DataProvider.Category.DeleteCategory(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         #region Questions
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult EditQuestion(Guid? id, Guid categoryId)
         {
@@ -94,7 +102,9 @@ namespace LearningRace.Controllers
             return View(question);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditQuestion(Guid? id, FormCollection collection)
         {
             Question newQuestion = new Question()
@@ -174,7 +184,7 @@ namespace LearningRace.Controllers
             //}
             //return RedirectToAction("Details", new { id = collection.Get("CategoryId") });
         }
-        
+
         public ActionResult DeleteVariant(Guid id, Guid questionId)
         {
             DataProvider.Questions.DeleteVariant(id);
@@ -196,6 +206,25 @@ namespace LearningRace.Controllers
             {
                 category.ImagePath = Url.Content(Constants.defaultCategoryImage);
             }
+        }
+
+        private List<Category> GetOrderedCategoriesList()
+        {
+            List<Category> allCategories = DataProvider.Category.GetAllCategories();
+            List<Category> result = GetCategoriesByParentId(allCategories, null, "");
+            return result;
+        }
+
+        private List<Category> GetCategoriesByParentId(List<Category> allCategories, Guid? parentId, string prefix)
+        {
+            List<Category> childCategories = allCategories.Where(c => c.ParentId == parentId).ToList();
+            List<Category> result = new List<Category>();
+            foreach (Category c in childCategories)
+            {
+                result.Add(new Category() { Name = prefix + c.Name, Id = c.Id });
+                result.AddRange(GetCategoriesByParentId(allCategories, c.Id, prefix + "-"));
+            }
+            return result;
         }
 
         #endregion

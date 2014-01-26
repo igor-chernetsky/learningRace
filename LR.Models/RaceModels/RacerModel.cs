@@ -11,9 +11,7 @@ namespace LR.Models.RaceModels
 
         public int Speed { get; set; }
 
-        public int AvrSpeed { get; set; }
-
-        public int DSpeed { get; set; }
+        public Car RaceCar {get; set;}
 
         public int Length { get; set; }
 
@@ -29,9 +27,47 @@ namespace LR.Models.RaceModels
 
         public int Score { get; set; }
 
-        public RacerModel()
+        public string Message { get; set; }
+
+        public Result RaceResult = new Result();
+
+        #region Constructors
+
+        public RacerModel(UserProfile user, Car car)
         {
-            DSpeed = 1;
+            Racer = user;
+            RaceCar = car;
+            ReadyTime = 5;
+            Speed = 5;
         }
+
+        #endregion
+
+        #region Methods
+
+        public void MoveRacer()
+        {
+            Length += Speed;
+            if (Speed > RaceCar.AvrSpeed)
+            {
+                Speed -= RaceCar.DSpeed;
+            }
+            if (Speed < RaceCar.AvrSpeed)
+            {
+                Speed += RaceCar.DSpeed;
+            }
+        }
+
+        #endregion
+
+        #region internalClasses
+
+        public class Result
+        {
+            public int RacersCount;
+            public int RacerPlace;
+        }
+
+        #endregion
     }
 }

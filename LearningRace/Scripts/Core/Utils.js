@@ -1,16 +1,24 @@
-﻿var utils = {
-    sortRacesrs: function (a, b) {
-        if (a.Length > b.Length) return 1;
-        if (a.Length < b.Length) return -1;
-        return 0;
-    },
+﻿var utils = function () {
 
-    getSortedRacers: function (racers) {
-        var result = [];
-        $(racers).each(function () {
-            result.push({ RacerName: this.RacerName, Length: this.Length });
-        });
-        result.sort(this.sortRacesrs);
-        return result;
+  var _showMessage = function (message, title) {
+    alert(message);
+  }
+
+  var _showConfirmation = function (message, callbackYes, callbackNo) {
+    if (confirm(message)) {
+      if (callbackYes && typeof callbackYes === 'function') {
+        callbackYes();
+      }
+    } else {
+      if (callbackNo && typeof callbackNo === 'function') {
+        callbackNo();
+      }
     }
-}
+  }
+
+  return {
+    showMessage: _showMessage,
+    showConfirmation: _showConfirmation
+  }
+
+}();

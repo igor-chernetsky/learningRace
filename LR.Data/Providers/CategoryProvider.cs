@@ -42,6 +42,7 @@ namespace LR.Data.Providers
             categoryToUpdate.Description = category.Description;
             categoryToUpdate.Parent = category.Parent;
             categoryToUpdate.Difficulty = category.Difficulty;
+            categoryToUpdate.IsVisible = category.IsVisible;
             Context.SaveChanges();
         }
 

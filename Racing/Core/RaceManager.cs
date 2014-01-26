@@ -40,12 +40,8 @@ namespace Racing.Core
                     race = new RaceModel();
                     IdleRaces.Add(race);
                 }
-                RacerModel racer = new RacerModel();
-
-                racer.Racer = DataProvider.UserProfile.GetUserById(racerId);
-                racer.AvrSpeed = 5;
-                racer.ReadyTime = 5;
-                racer.Speed = 5;
+                Car raceCar = new Car();
+                RacerModel racer = new RacerModel(DataProvider.UserProfile.GetUserById(racerId), raceCar);
 
                 race.Racers.Add(racer);
                 race.Version++;
@@ -111,9 +107,8 @@ namespace Racing.Core
 
                 Races.Where(r=>r.IsFinished).ToList().ForEach(r=>r.Racers.ForEach(rc=>rc.TrysCountToGetResult+= rc.HasGotResults ? 0 : 1));
                 Races.RemoveAll(r => r.IsFinished && r.Racers.FirstOrDefault(rc => !rc.HasGotResults && rc.TrysCountToGetResult < 5) == null);
-                
+
                 Races.Where(r => !r.IsFinished).ToList().ForEach(r => r.Racers.ForEach(rc => MoveRacer(rc, r)));
-                Races.ForEach(r => r.IsFinished = r.Racers.FirstOrDefault(rc => !rc.IsFinished) == null);
                 Thread.Sleep(1000);
             }
             IsRaceStarted = false;
@@ -126,28 +121,21 @@ namespace Racing.Core
         {
             if (racer.Length < race.Length)
             {
-                racer.Length += racer.Speed;
-                if (racer.Speed > racer.AvrSpeed)
-                {
-                    racer.Speed -= racer.DSpeed;
-                }
-                if (racer.Speed < racer.AvrSpeed)
-                {
-                    racer.Speed += racer.DSpeed;
-                }
+                racer.MoveRacer();
             }
             else if (!racer.IsFinished)
             {
                 if (race.Places.FirstOrDefault(r => r.Racer.UserId == racer.Racer.UserId) == null)
                 {
-                    race.Places.Add(new RacerModel()
-                        {
-                            Racer = racer.Racer
-                        }
-                    );
-                    int totalCount = (racer.Score * (10 + (race.Racers.Count - race.Places.Count))) / 10;
-                    DataProvider.UserProfile.AddScoreToUser(totalCount, racer.Racer);
+                    Car raceCar = new Car();
+                    race.Places.Add(new RacerModel(racer.Racer, raceCar));
+                    int totalScore = (racer.Score * (10 + (race.Racers.Count - race.Places.Count))) / 10;
+                    DataProvider.UserProfile.AddScoreToUser(totalScore, racer.Racer);
+                    racer.Message = string.Format("You finished the race {0}/{1}, with {2} points", race.Places.Count, race.Racers.Count, totalScore);
+                    racer.RaceResult.RacerPlace = race.Places.Count;
+                    racer.RaceResult.RacersCount = race.Racers.Count;
                 }
+                racer.Length = race.Length;
                 racer.Speed = 0;
                 racer.IsFinished = true;
             }
