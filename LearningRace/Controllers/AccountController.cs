@@ -17,15 +17,6 @@ namespace LearningRace.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
 
         //
         // POST: /Account/Login
@@ -33,15 +24,13 @@ namespace LearningRace.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public JsonResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+                return Json(new { status = 0 });
             }
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            return View(model);
+            return Json(new {status = "Wrong password"});
         }
 
         //
@@ -53,16 +42,7 @@ namespace LearningRace.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
-        }
-
-        //
-        // GET: /Account/Register
-
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
+            return RedirectToAction("Themes", "Home");
         }
 
         //
@@ -71,7 +51,7 @@ namespace LearningRace.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public JsonResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -80,16 +60,14 @@ namespace LearningRace.Controllers
                 {
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return Json(new { status = 0 });
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    return Json(new { status = e.Message });
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return Json(new { status = "Try Again" });
         }
 
         //
@@ -374,7 +352,7 @@ namespace LearningRace.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Themes", "Home");
             }
         }
 

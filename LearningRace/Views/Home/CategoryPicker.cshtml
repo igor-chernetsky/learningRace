@@ -2,7 +2,7 @@
 <ul>
     @foreach (var item in Model)
     {
-		if (item.ParentId == ViewBag.parentId && (item.IsVisible || ViewBag.IsAdmin))
+		if (item.IsVisible || ViewBag.IsAdmin)
         {
         <li class="categoryContainer row">
             <div class="col-sm-4 image-container">
@@ -56,8 +56,8 @@
             </div>
             }
             <div parentId="@item.Id" style="display:none;">
-                @{var childViewData = new ViewDataDictionary(new ViewDataDictionary { { "parentId", item.Id }, { "IsAdmin", ViewBag.IsAdmin } });}
-                @Html.Partial("CategoryPicker", Model, childViewData)
+                @{var childViewData = new ViewDataDictionary(new ViewDataDictionary {{ "IsAdmin", ViewBag.IsAdmin }});}
+                @Html.Partial("CategoryPicker", item.ChildCategories, childViewData)
             </div>
         </li>
         }

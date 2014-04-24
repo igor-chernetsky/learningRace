@@ -30,8 +30,8 @@
                     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true)
-
+                        <div class="alert-message error"></div>
+                        
                         <div class="form-group">
                             @Html.TextBox("UserName", "", htmlAttributes: new { placeholder = "User Name" })
                         </div>
@@ -43,6 +43,26 @@
                 </li>
               </ul>
             </li>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", Class = "btn" })</li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Register<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="register-menu">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post)) {
+                        @Html.AntiForgeryToken()
+                        <div class="alert-message error"></div>
+                        <div class="form-group">
+                                @Html.TextBox("UserName", "", htmlAttributes: new { placeholder = "User Name", requried = true, autocomplete="off" })
+                        </div>
+                        <div class="form-group">
+                                @Html.Password("Password", "", htmlAttributes: new { placeholder = "Password", requried = true })
+                        </div>
+                        <div class="form-group">
+                                @Html.Password("ConfirmPassword", "", htmlAttributes: new { placeholder = "Confirm Password", requried = true })
+                        </div>
+                        <input type="submit" value="Register" class="btn btn-default" />
+                    }
+                </li>
+              </ul>
+        </li>
     </ul>
 }

@@ -27,5 +27,8 @@ namespace LearningRace.Models
 
         [Display(Name = "Is Visible")]
         public bool IsVisible { get; set; }
+
+        [Display(Name = "Language")]
+        public LR.Models.Language Language { get; set; }
     }
 }

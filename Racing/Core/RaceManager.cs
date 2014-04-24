@@ -119,7 +119,7 @@ namespace Racing.Core
         /// </summary>
         private static void MoveRacer(RacerModel racer, RaceModel race)
         {
-            if (racer.Length < race.Length)
+            if (racer.Length <= race.Length)
             {
                 racer.MoveRacer();
             }
@@ -138,6 +138,7 @@ namespace Racing.Core
                 racer.Length = race.Length;
                 racer.Speed = 0;
                 racer.IsFinished = true;
+                if (race.Racers.FirstOrDefault(rc => !rc.IsFinished) == null) race.IsFinished = true;
             }
         }
 

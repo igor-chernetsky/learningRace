@@ -3,25 +3,39 @@
   border-bottom: 1px solid lightgrey;
 }
 
-/* line 3, ../sass/header.scss */
+/* line 4, ../sass/header.scss */
 html, body {
   font-family: arial;
 }
 
-/* line 8, ../sass/header.scss */
+/* line 9, ../sass/header.scss */
 .navbar .score {
   float: right;
 }
-/* line 12, ../sass/header.scss */
+/* line 13, ../sass/header.scss */
 .navbar .login-icon {
   border: none;
   margin: 5px 5px 5px 0;
   width: 40px;
   height: 40px;
 }
-/* line 19, ../sass/header.scss */
-.navbar .login-menu {
+/* line 20, ../sass/header.scss */
+.navbar .login-menu, .navbar .register-menu {
   padding: 10px;
+}
+/* line 24, ../sass/header.scss */
+.navbar .alert-message {
+  padding: 5px;
+  margin: 5px 0;
+  display: none;
+}
+/* line 29, ../sass/header.scss */
+.navbar .alert-message.error {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ee5f5b), color-stop(100%, #c43c35));
+  background-image: -webkit-linear-gradient(#ee5f5b, #c43c35);
+  background-image: -moz-linear-gradient(#ee5f5b, #c43c35);
+  background-image: -o-linear-gradient(#ee5f5b, #c43c35);
+  background-image: linear-gradient(#ee5f5b, #c43c35);
 }
 
 /*!
@@ -7607,7 +7621,16 @@ body {
 }
 
 /* line 55, ../sass/screen.scss */
-li.categoryContainer {
+.clear:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+/* line 64, ../sass/screen.scss */
+.main-content li.categoryContainer {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(10%, #ececec), color-stop(50%, #ffffff), color-stop(100%, #ffffff));
   background-image: -webkit-linear-gradient(top, #ececec 10%, #ffffff 50%, #ffffff);
   background-image: -moz-linear-gradient(top, #ececec 10%, #ffffff 50%, #ffffff);
@@ -7619,134 +7642,193 @@ li.categoryContainer {
   border-top: 1px solid #7f7f7f;
   overflow: hidden;
 }
-/* line 63, ../sass/screen.scss */
-li.categoryContainer h3 {
+/* line 72, ../sass/screen.scss */
+.main-content li.categoryContainer h3 {
   margin-top: 5px;
 }
-/* line 67, ../sass/screen.scss */
-li.categoryContainer div {
+/* line 76, ../sass/screen.scss */
+.main-content li.categoryContainer div {
   margin-bottom: 5px;
 }
-/* line 71, ../sass/screen.scss */
-li.categoryContainer .image-container {
+/* line 80, ../sass/screen.scss */
+.main-content li.categoryContainer .image-container {
   width: 230px;
 }
-/* line 74, ../sass/screen.scss */
-li.categoryContainer .image-container img {
+/* line 83, ../sass/screen.scss */
+.main-content li.categoryContainer .image-container img {
   width: 150px;
   margin-left: 25px;
 }
-/* line 79, ../sass/screen.scss */
-li.categoryContainer .image-container .action {
+/* line 88, ../sass/screen.scss */
+.main-content li.categoryContainer .image-container .action {
   margin-top: 5px;
 }
-/* line 83, ../sass/screen.scss */
-li.categoryContainer .action {
+/* line 92, ../sass/screen.scss */
+.main-content li.categoryContainer .action {
   width: 100%;
 }
-/* line 85, ../sass/screen.scss */
-li.categoryContainer .action .btn-default {
+/* line 94, ../sass/screen.scss */
+.main-content li.categoryContainer .action .btn-default {
   width: 200px;
   margin-top: 5px;
 }
-/* line 88, ../sass/screen.scss */
-li.categoryContainer .action .btn-default.small {
+/* line 97, ../sass/screen.scss */
+.main-content li.categoryContainer .action .btn-default.small {
   width: 80px;
   margin: 0 5px;
 }
-/* line 95, ../sass/screen.scss */
-li.categoryContainer ul.questions {
+/* line 104, ../sass/screen.scss */
+.main-content li.categoryContainer ul.questions {
   margin-bottom: 5px;
   padding-left: 5px;
 }
 
-/* line 102, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
+.main-content > ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* line 117, ../sass/screen.scss */
 .item-details .row {
   margin: 10px 0;
 }
-/* line 104, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 .item-details .row textarea {
   width: 100%;
 }
-/* line 108, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 .item-details .row .variantBlock {
   margin-bottom: 10px;
 }
-/* line 110, ../sass/screen.scss */
+/* line 125, ../sass/screen.scss */
 .item-details .row .variantBlock input[type="radio"] {
   margin: 0 10px;
 }
-/* line 115, ../sass/screen.scss */
+/* line 130, ../sass/screen.scss */
 .item-details .caption {
   font-weight: bold;
 }
-/* line 118, ../sass/screen.scss */
+/* line 133, ../sass/screen.scss */
 .item-details img.caption {
   width: 200px;
 }
+/* line 136, ../sass/screen.scss */
+.item-details .imageContainer img {
+  max-width: 100%;
+}
 
-/* line 123, ../sass/screen.scss */
+/* line 141, ../sass/screen.scss */
 .questionShort {
   max-height: 40px;
   overflow: hidden;
 }
-/* line 127, ../sass/screen.scss */
+/* line 145, ../sass/screen.scss */
 .questionShort:hover {
   max-height: none;
 }
 
-/* line 132, ../sass/screen.scss */
+/* line 150, ../sass/screen.scss */
 #cnvRace {
   float: left;
   width: 33%;
   min-width: 400px;
 }
 
-/* line 138, ../sass/screen.scss */
+/* line 156, ../sass/screen.scss */
 .raceDetails {
   float: left;
   width: 400px;
   background-color: #ececec;
   color: #333333;
 }
-/* line 142, ../sass/screen.scss */
+/* line 160, ../sass/screen.scss */
 .raceDetails .questionContainer {
   padding-top: 20px;
 }
-/* line 145, ../sass/screen.scss */
+/* line 163, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container {
   position: relative;
 }
-/* line 147, ../sass/screen.scss */
+/* line 165, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton {
   width: 100%;
   margin: 10px 0;
   border: solid 1px gray;
 }
-/* line 151, ../sass/screen.scss */
+/* line 169, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton.wrong {
   border-color: red;
 }
-/* line 154, ../sass/screen.scss */
+/* line 172, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton.right {
   border-color: green;
 }
-/* line 158, ../sass/screen.scss */
+/* line 176, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .icon {
   position: absolute;
   top: 13px;
   right: -7px;
 }
-/* line 168, ../sass/screen.scss */
+/* line 186, ../sass/screen.scss */
 .raceDetails th, .raceDetails td {
   padding: 5px 10px;
 }
-/* line 172, ../sass/screen.scss */
+/* line 190, ../sass/screen.scss */
 .raceDetails h4 {
   padding: 10px;
 }
 
-/* line 178, ../sass/screen.scss */
+/* line 196, ../sass/screen.scss */
 table.table .btn {
   margin-left: 10px;
+}
+
+/* line 203, ../sass/screen.scss */
+.themeList .themeFrame {
+  width: 200px;
+  height: 150px;
+  float: left;
+  margin-left: 40px;
+  position: relative;
+}
+/* line 210, ../sass/screen.scss */
+.themeList .themeFrame .imageFrame {
+  border: 1px solid #ececec;
+}
+/* line 213, ../sass/screen.scss */
+.themeList .themeFrame .imageFrame .caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 4px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(100%, #ececec));
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.5), #ececec);
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.5), #ececec);
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.5), #ececec);
+  background-image: linear-gradient(top, rgba(255, 255, 255, 0.5), #ececec);
+  color: #333333;
+}
+/* line 220, ../sass/screen.scss */
+.themeList .themeFrame .imageFrame .caption .title {
+  font-size: 14px;
+  font-weight: bold;
+}
+/* line 226, ../sass/screen.scss */
+.themeList .themeFrame .imageFrame img {
+  max-width: 198px;
+  max-height: 148px;
+  width: 100%;
+}
+/* line 233, ../sass/screen.scss */
+.themeList .themeFrame .controlPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* line 241, ../sass/screen.scss */
+.themeFilter {
+  float: right;
+  margin-top: -40px;
 }

@@ -72,7 +72,7 @@ namespace LearningRace.Controllers
                         Request.Files[0].SaveAs(path);
                     }
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Themes", "Home");
             }
             catch
             {
@@ -84,7 +84,12 @@ namespace LearningRace.Controllers
         public ActionResult Delete(Guid id)
         {
             DataProvider.Category.DeleteCategory(id);
-            return RedirectToAction("Index", "Home");
+            string path = Server.MapPath(PathUtil.GetCategoryImagePath(id));
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+            return RedirectToAction("Themes", "Home");
         }
 
         #region Questions
@@ -161,6 +166,7 @@ namespace LearningRace.Controllers
             return View(variant);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult EditVariant(Guid? id, string questionId, FormCollection collection)
         {
@@ -168,21 +174,6 @@ namespace LearningRace.Controllers
             string variant = collection.Get("variantValue");
 
             return View();
-            //Variant newVariant = new Variant()
-            //{
-            //    Value = collection.Get("Value"),
-            //    Question = DataProvider.Questions.GetQuestionById(new Guid(collection.Get("QuestionId")))
-            //};
-            //if (id == null || id == Guid.Empty)
-            //{
-            //    DataProvider.Questions.AddVariant(newVariant);
-            //}
-            //else
-            //{
-            //    newVariant.Id = id.Value;
-            //    DataProvider.Questions.EditVariant(newVariant);
-            //}
-            //return RedirectToAction("Details", new { id = collection.Get("CategoryId") });
         }
 
         public ActionResult DeleteVariant(Guid id, Guid questionId)

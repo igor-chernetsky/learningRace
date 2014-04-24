@@ -38,6 +38,19 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-sm-3 caption">
+                @Html.LabelFor(model=>model.Language)
+            </div>
+            <div class="col-sm-3">
+                @{
+                    var values = from LR.Models.Language e in Enum.GetValues(typeof(LR.Models.Language))
+                    select new { Id = e, Name = e.ToString() };
+                }
+                @Html.DropDownListFor(model=>model.Language, new SelectList(values, "Id", "Name", Model.Language))
+            </div>
+        </div>
+
         @Html.HiddenFor(model => model.Id)
 
         <div class="row">
@@ -59,7 +72,7 @@
 		</div>
 
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 imageContainer">
                 @if(Model != null){
                     <img src="@Model.ImagePath" alt="@Model.Name" />
                 }

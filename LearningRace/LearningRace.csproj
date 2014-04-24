@@ -48,6 +48,9 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -118,6 +121,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -167,6 +173,7 @@
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\PreStart.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\CustomViewPage.cs" />
@@ -245,16 +252,26 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\asphalt.png" />
     <Content Include="Images\Cars\BasicCar.png" />
+    <Content Include="Images\Cars\pinkUnversal.png" />
+    <Content Include="Images\Cars\redSedan.png" />
+    <Content Include="Images\Categories\DefaultCategory.png" />
+    <Content Include="Images\icons-s65ed7e551f.png" />
+    <Content Include="Images\icons\facebook40.png" />
+    <Content Include="Images\icons\green-checkmark.png" />
     <Content Include="Images\icons\header-bg.gif" />
     <Content Include="Images\icons\icons.png" />
     <Content Include="Images\icons\logo.png" />
+    <Content Include="Images\icons\red-cross.png" />
     <Content Include="Images\icons\resize.gif" />
+    <Content Include="Images\icons\vkontakte40.png" />
     <Content Include="Images\race\finish.png" />
     <Content Include="Scripts\Core\Login.js" />
     <Content Include="Scripts\Core\Utils.js" />
     <Content Include="Scripts\Cutegories\CategoriesPicker.js" />
     <Content Include="Scripts\Cutegories\QuestionEditor.js" />
+    <Content Include="Scripts\Cutegories\Themes.js" />
     <Content Include="Scripts\easeljs-0.6.1.min.js" />
     <Content Include="Scripts\Game\Core.js" />
     <Content Include="Scripts\Game\GameModel.js" />
@@ -296,11 +313,7 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -312,12 +325,20 @@
     <Content Include="Content\sass\print.scss" />
     <Content Include="Content\sass\screen.scss" />
     <Content Include="Content\sass\image-assets.scss" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\learningrace - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\learningrace - Web Deploy.pubxml" />
+    <Content Include="Views\Home\Themes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\css\" />
     <Folder Include="Filters\" />
-    <Folder Include="Images\Categories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -52,6 +52,8 @@ namespace LR.Models
         [NotMapped]
         public List<string> RandomQuestions { get; set; }
 
+        public Language Language { get; set; }
+
         public Category Parent { get; set; }
 
         public int Difficulty { get; set; }

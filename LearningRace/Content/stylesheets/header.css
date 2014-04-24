@@ -3,23 +3,37 @@
   border-bottom: 1px solid lightgrey;
 }
 
-/* line 3, ../sass/header.scss */
+/* line 4, ../sass/header.scss */
 html, body {
   font-family: arial;
 }
 
-/* line 8, ../sass/header.scss */
+/* line 9, ../sass/header.scss */
 .navbar .score {
   float: right;
 }
-/* line 12, ../sass/header.scss */
+/* line 13, ../sass/header.scss */
 .navbar .login-icon {
   border: none;
   margin: 5px 5px 5px 0;
   width: 40px;
   height: 40px;
 }
-/* line 19, ../sass/header.scss */
-.navbar .login-menu {
+/* line 20, ../sass/header.scss */
+.navbar .login-menu, .navbar .register-menu {
   padding: 10px;
+}
+/* line 24, ../sass/header.scss */
+.navbar .alert-message {
+  padding: 5px;
+  margin: 5px 0;
+  display: none;
+}
+/* line 29, ../sass/header.scss */
+.navbar .alert-message.error {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ee5f5b), color-stop(100%, #c43c35));
+  background-image: -webkit-linear-gradient(#ee5f5b, #c43c35);
+  background-image: -moz-linear-gradient(#ee5f5b, #c43c35);
+  background-image: -o-linear-gradient(#ee5f5b, #c43c35);
+  background-image: linear-gradient(#ee5f5b, #c43c35);
 }

@@ -28,11 +28,6 @@ namespace LR.Data
             }
         }
 
-        static DataContext()
-        {
-            Database.SetInitializer(new CustomDatabaseInitializer());
-        }
-
         public DataContext() : base(nameOrConnectionString: DataContext.ConnectionStringName) { }
     }
 }

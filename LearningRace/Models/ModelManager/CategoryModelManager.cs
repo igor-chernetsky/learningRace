@@ -18,7 +18,8 @@ namespace LearningRace.Models.ModelManager
                 Parent = model.ParentId == Guid.Empty ? null : DataProvider.Category.GetCategoryById(model.ParentId.Value),
                 Description = model.Description,
                 Difficulty = model.Difficulty,
-                IsVisible = model.IsVisible
+                IsVisible = model.IsVisible,
+                Language = model.Language
             };
             return result;
         }

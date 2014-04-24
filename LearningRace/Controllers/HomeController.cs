@@ -17,13 +17,21 @@ namespace LearningRace.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Themes()
         {
-            List<Category> categories = DataProvider.Category.GetAllCategories(true);
+            List<Category> categories = DataProvider.Category.GetRootCategories();
             categories.ForEach(c => InitializeCategoryImage(c));
             ViewBag.Categories = categories;
             ViewBag.IsAdmin = User.IsInRole("admin");
             return View();
+        }
+
+        public ActionResult Index(Guid id)
+        {
+            Category currentCategory = DataProvider.Category.GetCategoryById(id, true);
+            InitializeCategoryImage(currentCategory);
+            ViewBag.IsAdmin = User.IsInRole("admin");
+            return View(currentCategory);
         }
 
         public ActionResult About()
@@ -88,15 +96,19 @@ namespace LearningRace.Controllers
 
         private void InitializeCategoryImage(Category category)
         {
-            string path = Server.MapPath(PathUtil.GetCategoryImagePath(category.Id));
-            if (System.IO.File.Exists(path))
+            if (string.IsNullOrEmpty(category.ImagePath))
             {
-                category.ImagePath = Url.Content(PathUtil.GetCategoryImagePath(category.Id));
+                string path = Server.MapPath(PathUtil.GetCategoryImagePath(category.Id));
+                if (System.IO.File.Exists(path))
+                {
+                    category.ImagePath = Url.Content(PathUtil.GetCategoryImagePath(category.Id));
+                }
+                else
+                {
+                    category.ImagePath = Url.Content(Constants.defaultCategoryImage);
+                }
             }
-            else
-            {
-                category.ImagePath = Url.Content(Constants.defaultCategoryImage);
-            }
+            category.ChildCategories.ForEach(c => InitializeCategoryImage(c));
         }
 
         #endregion

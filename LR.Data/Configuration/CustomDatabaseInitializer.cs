@@ -14,9 +14,9 @@ namespace LR.Data.Configuration
     {
         protected override void Seed(DataContext context)
         {
-            Category сategory = AddCategory("Английский язык", "Изучаем английский язык", null, context);
-            сategory = AddCategory("Основы, словарный запас", "Пополняем словарный запас частоупотребляемыми словами", сategory, context);
-            сategory = AddCategory("Звери", "Знакомимся с названиями зверей на английском", сategory, context);
+            Category сategory = AddCategory("Английский язык", "Изучаем английский язык", Language.Russian, null, context);
+            сategory = AddCategory("Основы, словарный запас", "Пополняем словарный запас частоупотребляемыми словами", Language.Russian, сategory, context);
+            сategory = AddCategory("Звери", "Знакомимся с названиями зверей на английском", Language.Russian, сategory, context);
             string[] vars = { "bird", "animal", "fish", "insect" };
             AddQuestion(сategory, context, "Животное", vars, 1);
             vars = new string[4] { "cow", "rat", "duck", "hawk" };
@@ -30,9 +30,9 @@ namespace LR.Data.Configuration
             vars = new string[4] { "gus", "chicken", "tiger", "elk" };
             AddQuestion(сategory, context, "Лось", vars, 3);
 
-            сategory = AddCategory("Russian language", "Study of Russian language", null, context);
-            сategory = AddCategory("Basic, vocabulary", "Study comman words", сategory, context);
-            сategory = AddCategory("Animals", "Acquainted with the names of animals in Russian", сategory, context);
+            сategory = AddCategory("Russian language", "Study of Russian language", Language.English, null, context);
+            сategory = AddCategory("Basic, vocabulary", "Study comman words", Language.English, сategory, context);
+            сategory = AddCategory("Animals", "Acquainted with the names of animals in Russian", Language.English, сategory, context);
             vars = new string[4] { "птица", "животное", "рыба", "насекомое" };
             AddQuestion(сategory, context, "Animal", vars, 1);
             vars = new string[4] { "корова", "крыса", "рыба", "лось" };
@@ -46,8 +46,8 @@ namespace LR.Data.Configuration
             vars = new string[4] { "гусь", "курица", "тигр", "лось" };
             AddQuestion(сategory, context, "Elk", vars, 3);
 
-            сategory = AddCategory("Mathematics", "Science of numbers", null, context);
-            сategory = AddCategory("Basic of math", "addition, subtraction, inequality signs", сategory, context);
+            сategory = AddCategory("Mathematics", "Science of numbers", Language.English, null, context);
+            сategory = AddCategory("Basic of math", "addition, subtraction, inequality signs", Language.English, сategory, context);
             vars = new string[4] { "12", "13", "8", "11" };
             AddQuestion(сategory, context, "4 + 7 =", vars, 3);
             vars = new string[4] { "4", "8", "0", "10" };
@@ -61,8 +61,8 @@ namespace LR.Data.Configuration
             vars = new string[4] { "1 + 1", "2 + 3", "5 + 5", "1 + 4" };
             AddQuestion(сategory, context, "5 - 3 =", vars, 0);
 
-            сategory = AddCategory("Математика", "Science of numbers", null, context);
-            сategory = AddCategory("Основы математики", "сложение, вычитание, знаки неравенства", сategory, context);
+            сategory = AddCategory("Математика", "Наука о числах", Language.Russian, null, context);
+            сategory = AddCategory("Основы математики", "сложение, вычитание, знаки неравенства", Language.Russian, сategory, context);
             vars = new string[4] { "12", "13", "8", "11" };
             AddQuestion(сategory, context, "4 + 7 =", vars, 3);
             vars = new string[4] { "4", "8", "0", "10" };
@@ -80,11 +80,12 @@ namespace LR.Data.Configuration
             base.Seed(context);
         }
 
-        private Category AddCategory(string name, string description, Category parent, DataContext context)
+        private Category AddCategory(string name, string description, Language len, Category parent, DataContext context)
         {
             Category newCategory = new Category();
             newCategory.Name = name;
             newCategory.Description = description;
+            newCategory.Language = len;
             if (parent != null) newCategory.Parent = parent;
             context.Category.Add(newCategory);
             newCategory.IsVisible = true;

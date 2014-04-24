@@ -52,50 +52,65 @@ body{
     right: 0;
 }
 
-li.categoryContainer{
-    @include background-image(linear-gradient(top, $lightGray 10%, white 50%, white));
-    list-style: none;
+.clear:after{
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
     clear: both;
-    padding-top: 10px;
-    border-top: 1px solid #7f7f7f;
-    overflow: hidden;
+}
 
-    h3{
-        margin-top:5px;
-    }
+.main-content{
+    li.categoryContainer{
+        @include background-image(linear-gradient(top, $lightGray 10%, white 50%, white));
+        list-style: none;
+        clear: both;
+        padding-top: 10px;
+        border-top: 1px solid #7f7f7f;
+        overflow: hidden;
 
-    div{
-        margin-bottom: 5px;
-    }
-
-    .image-container{
-        width: 230px;
-
-        img{
-            width: 150px;
-            margin-left: 25px;
-        }
-
-		.action{
-			margin-top: 5px;
-		}
-    }
-    .action{
-        width: 100%;
-        .btn-default{
-            width: 200px;
+        h3{
             margin-top:5px;
-			&.small{
-				width: 80px;
-				margin: 0 5px;
-			}
+        }
+
+        div{
+            margin-bottom: 5px;
+        }
+
+        .image-container{
+            width: 230px;
+
+            img{
+                width: 150px;
+                margin-left: 25px;
+            }
+
+            .action{
+                margin-top: 5px;
+            }
+        }
+        .action{
+            width: 100%;
+            .btn-default{
+                width: 200px;
+                margin-top:5px;
+                &.small{
+                    width: 80px;
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        ul.questions{
+            margin-bottom: 5px;
+            padding-left: 5px;
         }
     }
+}
 
-    ul.questions{
-        margin-bottom: 5px;
-        padding-left: 5px;
-    }
+.main-content>ul{
+    padding-left: 0;
+    margin-left: 0;
 }
 
 .item-details{
@@ -117,6 +132,9 @@ li.categoryContainer{
     }
     img.caption{
         width: 200px;
+    }
+    .imageContainer img{
+        max-width: 100%;
     }
 }
 
@@ -178,4 +196,49 @@ table.table{
     .btn{
         margin-left: 10px;
     }
+}
+
+.themeList{
+
+    .themeFrame{
+        width: 200px;
+        height: 150px;
+        float: left;
+        margin-left: 40px;
+        position: relative;
+
+        .imageFrame{
+            border: 1px solid $lightGray;
+
+            .caption{
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 4px;
+                @include background-image(linear-gradient(top, rgba(white, 0.5), rgba($lightGray, 1)));
+                color: $textgray;
+                .title{
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+
+            img{
+                max-width: 198px;
+                max-height: 148px;
+                width: 100%;
+            }
+        }
+
+        .controlPanel{
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}
+
+.themeFilter{
+    float: right;
+    margin-top: -40px;
 }

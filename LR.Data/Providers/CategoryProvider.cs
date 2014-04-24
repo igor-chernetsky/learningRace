@@ -7,6 +7,12 @@ namespace LR.Data.Providers
 {
     public class CategoryProvider : MainProvider
     {
+        public List<Category> GetRootCategories()
+        {
+            List<Category> result = Context.Category.Where(c=> c.Parent == null).ToList();
+            return result;
+        }
+
         public List<Category> GetAllCategories(bool withRandomQuestions = false)
         {
             List<Category> result = Context.Category.ToList();
@@ -22,9 +28,13 @@ namespace LR.Data.Providers
             return result;
         }
 
-        public Category GetCategoryById(Guid id)
+        public Category GetCategoryById(Guid id, bool initChild = false)
         {
             Category result = Context.Category.FirstOrDefault(c => c.Id == id);
+            if (initChild)
+            {
+                result.ChildCategories = GetChildCategories(result, Context.Category.ToList());
+            }
             return result;
         }
 
@@ -43,6 +53,7 @@ namespace LR.Data.Providers
             categoryToUpdate.Parent = category.Parent;
             categoryToUpdate.Difficulty = category.Difficulty;
             categoryToUpdate.IsVisible = category.IsVisible;
+            categoryToUpdate.Language = category.Language;
             Context.SaveChanges();
         }
 
@@ -50,6 +61,17 @@ namespace LR.Data.Providers
         {
             Context.Category.Remove(Context.Category.First(c => c.Id == id));
             Context.SaveChanges();
+        }
+
+        private List<Category> GetChildCategories(Category target, List<Category> allCategories)
+        {
+            List<Category> result = new List<Category>();
+            result = allCategories.Where(c => c.ParentId == target.Id).ToList();
+            result.ForEach(c => c.ChildCategories = GetChildCategories(c, allCategories));
+
+            result.ForEach(c => c.RandomQuestions = DataProvider.Questions.GetRandomQuestions(c.Id, 3).
+                    Select(q => q.QuestionText).ToList());
+            return result;
         }
     }
 }
