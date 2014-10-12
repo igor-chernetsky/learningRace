@@ -7,7 +7,7 @@ namespace LR.Models.RaceModels
 {
     public class RaceModel
     {
-        private int racersCount = 5;
+        private int racersCount = 4;
 
         public Guid RaceId { get; set; }
 
@@ -27,12 +27,15 @@ namespace LR.Models.RaceModels
 
         public int Version { get; set; }
 
-        public RaceModel()
+        public Guid CategoryId { get; set; }
+
+        public RaceModel(Guid categoryId)
         {
             RaceId = Guid.NewGuid();
             Racers = new List<RacerModel>();
             Places = new List<RacerModel>();
             Length = 1000;
+            CategoryId = categoryId;
         }
     }
 }

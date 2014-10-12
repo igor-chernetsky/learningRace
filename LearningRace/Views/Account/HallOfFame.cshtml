@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Hall Of Fame";
 }
+@Scripts.Render("~/bundles/halloffame")
 
 <h2>Hall Of Fame</h2>
 
@@ -15,6 +16,7 @@
             @Html.DisplayNameFor(model => model.Score)
         </th>
         <th></th>
+        <th>Share</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -23,13 +25,21 @@
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-            @(item.Score.HasValue ? item.Score : 0)
+            <span>@(item.Score.HasValue ? item.Score : 0)</span>
         </td>
         <td>
             @if (User.IsInRole("admin"))
             {
                 @Html.ActionLink(item.isAdmin ? "Remove Admin" : "Make an Admin", "ChangeRole", new { id = item.UserId, role = "admin" }, new { @class = "btn btn-default" })
                 @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId }, new { @class = "btn btn-default" })
+            }
+        </td>
+        <td>
+            @if (CurrentUser!=null && item.UserId == CurrentUser.UserId)
+            {
+                <div class="shareContainer">
+                    <div class="icons-fbshare-icon"></div>
+                </div>
             }
         </td>
     </tr>

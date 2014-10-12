@@ -42,5 +42,15 @@ namespace LearningRace
                 Roles.AddUsersToRoles(new[] { "admin" }, new[] { "admin" });
             }
         }
+
+        protected void Application_EndRequest()
+        {
+            if (Context.Response.StatusCode == 404)
+            {
+                Response.Clear();
+
+                Response.Redirect("/");
+            }
+        }
     }
 }

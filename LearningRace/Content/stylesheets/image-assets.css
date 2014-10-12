@@ -1,10 +1,15 @@
-/* line 82, icons/*.png */
-.icons-sprite, .icons-facebook40, .icons-green-checkmark, .icons-icons, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
-  background: url('/../Images/icons-s65ed7e551f.png') no-repeat;
+/* line 90, icons/*.png */
+.icons-sprite, .icons-facebook40, .icons-fbshare-icon, .icons-green-checkmark, .icons-icons, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
+  background: url('/../Images/icons-s0fe9f32526.png') no-repeat;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-facebook40 {
+  background-position: 0 -940px;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-fbshare-icon {
   background-position: 0 -922px;
 }
 
@@ -61,4 +66,10 @@
 .icons-green-checkmark {
   height: 26px;
   width: 28px;
+}
+
+/* line 29, ../sass/image-assets.scss */
+.icons-fbshare-icon {
+  height: 18px;
+  width: 57px;
 }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Threading;
 using LR.Models.RaceModels;
 using LR.Data.Providers;
+using LR.Models;
 
 namespace Racing.Core
 {
@@ -18,7 +19,7 @@ namespace Racing.Core
         //started races
         public static List<RaceModel> Races { get; set; }
         //not started races
-        public static List<RaceModel> IdleRaces {get;set;}
+        public static List<RaceModel> IdleRaces { get; set; }
 
         #endregion
 
@@ -27,21 +28,20 @@ namespace Racing.Core
         public static RaceModel AddRacer(int racerId, Guid categoryId)
         {
             InitLists();
-            RaceModel race = Races.FirstOrDefault(r => r.Racers.FirstOrDefault(rc => rc.Racer.UserId == racerId) != null);
+            RaceModel race = Races.FirstOrDefault(r => r.CategoryId == categoryId && r.Racers.FirstOrDefault(rc => rc.Racer.UserId == racerId) != null);
             if (race == null)
             {
-                race = IdleRaces.FirstOrDefault(r => r.Racers.FirstOrDefault(rc => rc.Racer.UserId == racerId) != null);
+                race = IdleRaces.FirstOrDefault(r => r.CategoryId == categoryId && r.Racers.FirstOrDefault(rc => rc.Racer.UserId == racerId) != null);
             }
             if (race == null)
             {
-                race = IdleRaces.FirstOrDefault(r => r.Racers.Count < r.RacerMaximimCount);
+                race = IdleRaces.FirstOrDefault(r => r.Racers.Count < r.RacerMaximimCount && r.CategoryId == categoryId);
                 if (race == null)
                 {
-                    race = new RaceModel();
+                    race = new RaceModel(categoryId);
                     IdleRaces.Add(race);
                 }
-                Car raceCar = new Car();
-                RacerModel racer = new RacerModel(DataProvider.UserProfile.GetUserById(racerId), raceCar);
+                RacerModel racer = new RacerModel(DataProvider.UserProfile.GetUserById(racerId), DataProvider.Cars.DefaultCar);
 
                 race.Racers.Add(racer);
                 race.Version++;
@@ -73,14 +73,12 @@ namespace Racing.Core
             racer.IsReady = isReady;
         }
 
-        public static void ChangeSpeed(Guid raceId, int racerId, int delta)
+        public static void ChangeSpeed(Guid raceId, int racerId, bool isCorrect)
         {
             RacerModel racer = GetRacerById(raceId, racerId);
+
             IncreaceVersion(raceId);
-            racer.Speed += delta;
-            if (racer.Speed < 0)
-                racer.Speed = 1;
-            racer.Score += delta > 0 ? 2 : -1;
+            racer.ChangeSpeed(isCorrect);
         }
 
         public static void StartRace()
@@ -127,8 +125,7 @@ namespace Racing.Core
             {
                 if (race.Places.FirstOrDefault(r => r.Racer.UserId == racer.Racer.UserId) == null)
                 {
-                    Car raceCar = new Car();
-                    race.Places.Add(new RacerModel(racer.Racer, raceCar));
+                    race.Places.Add(racer);
                     int totalScore = (racer.Score * (10 + (race.Racers.Count - race.Places.Count))) / 10;
                     DataProvider.UserProfile.AddScoreToUser(totalScore, racer.Racer);
                     racer.Message = string.Format("You finished the race {0}/{1}, with {2} points", race.Places.Count, race.Racers.Count, totalScore);

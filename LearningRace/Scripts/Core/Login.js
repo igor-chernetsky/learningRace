@@ -1,30 +1,4 @@
-﻿$(document).ready(function () {
-    $('html').click(function () {
-        $('.dropdown').removeClass('open');
-    });
-
-    $('.dropdown-menu').click(function (event) {
-        event.stopPropagation();
-    });
-
-    $('.dropdown-toggle').click(function (event) {
-        $('.dropdown').removeClass('open');
-        var $dropdown = $(this).parents('.dropdown');
-        $dropdown.toggleClass('open');
-        event.stopPropagation();
-    });
-
-    
-    authController.initAuthForm($('.login-menu form'), function () {
-        location.reload();
-    });
-
-    authController.initAuthForm($('.register-menu form'), function () {
-        location.href = '/';
-    });
-});
-
-var authController = (function () {
+﻿var authController = (function () {
     var _initAuthForm = function ($form, success) {
         $form.submit(function () {
             var url = $form.attr('action');
@@ -49,9 +23,27 @@ var authController = (function () {
 
             return false;
         });
+    };
+
+    var _initLoginDropdowns = function () {
+        $('html').click(function () {
+            $('.dropdown').removeClass('open');
+        });
+
+        $('.dropdown-menu').click(function (event) {
+            event.stopPropagation();
+        });
+
+        $('.dropdown-toggle').click(function (event) {
+            $('.dropdown').removeClass('open');
+            var $dropdown = $(this).parents('.dropdown');
+            $dropdown.toggleClass('open');
+            event.stopPropagation();
+        });
     }
 
     return {
-        initAuthForm: _initAuthForm
+        initAuthForm: _initAuthForm,
+        initLoginDropdowns: _initLoginDropdowns
     };
 })();

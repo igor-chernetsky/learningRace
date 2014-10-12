@@ -3,6 +3,10 @@
 @import "image-assets";
 @import "compass/css3/images";
 
+body{
+    min-width: 420px;
+}
+
 .content-wrapper{
     .btn{
         border: 1px solid gray;
@@ -26,7 +30,6 @@ body{
 }
 
 #body{
-    background: white;
     min-height: 100%;
     min-height: calc(100% - 53px);
     padding-bottom: 30px;
@@ -34,8 +37,7 @@ body{
 }
 
 .playground{
-    width: 800px;
-    background-color: $lightGray !important;
+    min-width: 400px;
 }
 
 #footer{
@@ -50,6 +52,13 @@ body{
     }
     left: 0;
     right: 0;
+
+    .container{
+        .vkshare{
+            display: inline-block;
+            height: 14px;
+        }
+    }
 }
 
 .clear:after{
@@ -68,6 +77,7 @@ body{
         padding-top: 10px;
         border-top: 1px solid #7f7f7f;
         overflow: hidden;
+        margin: 0;
 
         h3{
             margin-top:5px;
@@ -149,13 +159,16 @@ body{
 
 #cnvRace{
     float: left;
-    width: 33%;
+    width: 48%;
+    text-align: center;
     min-width: 400px;
 }
 
 .raceDetails{
     float: left;
-    width: 400px;
+    width: 47%;
+    margin-left: 1%;
+    margin-right: 2%;
 
     .questionContainer{
         padding-top: 20px;
@@ -192,6 +205,38 @@ body{
     }
 }
 
+.carSelector{
+    float: left;
+    width: 47%;
+    margin-left: 2%;
+    margin-right: 1%;
+
+    .carItem{
+        cursor: pointer;
+        float: left;
+        margin-left: 10px;
+        padding: 5px;
+
+        &.selected{
+            border: #333 2px solid;
+            padding: 3px;
+        }
+    }
+
+    .colorPicker{
+        padding: 10px;
+
+        .colorBox{
+            border: 1px solid #ccc;
+            float: left;
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
 table.table{
     .btn{
         margin-left: 10px;
@@ -199,6 +244,7 @@ table.table{
 }
 
 .themeList{
+    margin: 5px 0;
 
     .themeFrame{
         width: 200px;
@@ -240,5 +286,59 @@ table.table{
 
 .themeFilter{
     float: right;
-    margin-top: -40px;
+    margin-right: 10px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.icons-fbshare-icon{
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 0 -3px 5px;
+}
+
+.shareContainer{
+    .vkshare{
+        display: inline-block;
+        height: 16px;
+        margin-left: 10px;
+        td{
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+    }
+}
+
+.container{
+    background-color: $lightGray;
+
+    .lr_block{
+        border-radius: 10px 10px 0 0;
+        border: 1px solid white;
+        margin-top: 10px;
+        padding: 0;
+
+        .lr_header{
+            padding: 4px 10px;
+            @include background-image(linear-gradient(top, white 10%, $lightGray));
+            margin-bottom: 5px;
+            border-radius: 10px 10px 0 0;
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: none;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .raceDetails, .carSelector{
+        width: 98%;
+        margin: 0 1%;
+    }
+
+    #cnvRace{
+        width: 100%;
+    }
 }

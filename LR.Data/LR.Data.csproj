@@ -50,6 +50,7 @@
     <Compile Include="Configuration\CustomDatabaseInitializer.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CarsProvider.cs" />
     <Compile Include="Providers\CategoryProvider.cs" />
     <Compile Include="Providers\DataProvider.cs" />
     <Compile Include="Providers\MainProvider.cs" />

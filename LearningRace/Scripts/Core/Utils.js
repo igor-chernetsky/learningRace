@@ -16,9 +16,15 @@
     }
   }
 
+  var _getPathToCarImage = function (name, color) {
+      var path = '../Images/Cars/{color}{name}.png';
+      return path.replace('{name}', name).replace('{color}', color);
+  }
+
   return {
     showMessage: _showMessage,
-    showConfirmation: _showConfirmation
+    showConfirmation: _showConfirmation,
+    getPathToCarImage: _getPathToCarImage
   }
 
 }();

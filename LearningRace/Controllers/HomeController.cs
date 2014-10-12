@@ -51,7 +51,12 @@ namespace LearningRace.Controllers
         {
             ViewBag.questionList = DataProvider.Questions.GetQuestionForCategory(categoryId, true, true);
             ViewBag.categoryId = categoryId;
+
+            List<Car> raceCars = DataProvider.Cars.GetAvailableCars(WebSecurity.CurrentUserId);
+
+            ViewBag.Cars = raceCars;
             RaceModel race = RaceManager.AddRacer(WebSecurity.CurrentUserId, categoryId);
+            ViewBag.CurrentRacer = race.Racers.First(r => r.Racer.UserId == WebSecurity.CurrentUserId);
 
             return View(race);
         }
@@ -72,10 +77,13 @@ namespace LearningRace.Controllers
         }
 
         [Authorize]
-        public JsonResult RacerReady(Guid raceId, bool isReady)
+        public JsonResult RacerReady(Guid raceId, bool isReady, Guid carId, CarColors color)
         {
             RaceManager.ChangeRaceState(raceId, WebSecurity.GetUserId(User.Identity.Name), isReady);
             RaceModel race = RaceManager.GetRaceById(raceId);
+            race.Racers.First(rs => rs.Racer.UserId == WebSecurity.CurrentUserId).RaceCar = 
+                DataProvider.Cars.GetCarById(carId, color, WebSecurity.CurrentUserId);
+
             return Json(race, JsonRequestBehavior.AllowGet);
         }
 
@@ -84,8 +92,7 @@ namespace LearningRace.Controllers
         {
             Question question = DataProvider.Questions.GetQuestionById(questionId);
             bool result = question.RightVariant.Id == variantId;
-            int delta = result ? 15 : -10;
-            RaceManager.ChangeSpeed(raceId, WebSecurity.GetUserId(User.Identity.Name), delta);
+            RaceManager.ChangeSpeed(raceId, WebSecurity.GetUserId(User.Identity.Name), result);
             RaceModel race = RaceManager.GetRaceById(raceId);
             return Json(new { result = result, rightId = question.RightVariant.Id, race = race }, JsonRequestBehavior.AllowGet);
         }

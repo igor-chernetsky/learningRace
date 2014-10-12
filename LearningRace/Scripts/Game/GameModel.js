@@ -1,187 +1,175 @@
 ﻿/// <reference path="../jquery-1.7.1.min.js" />
 /// <reference path="../knockout-2.3.0.js" />
 
-function question(id, questionText, raceId) {
-    var self = this;
-
-    self.Id = id;
-    self.QuestionText = questionText;
-    self.RaceId = raceId;
-    self.variants = ko.observableArray([]);
-    self.gotVariant = false;
-
-    self.addVariant = function (v) {
-        self.variants.push(v);
-    }
-
-    self.sendAnswer = function (variant, callback, questionIndex) {
-        if (self.gotVariant) return;
-        self.gotVariant = true;
-        $.ajax({
-            url: "/Home/SendAnswer",
-            data: { questionId: self.Id, variantId: variant.Id, raceId: self.RaceId },
-            contentType: 'application/json',
-            dataType: "json",
-            success: function (data) {
-                if (callback) callback(data.race.Racers);
-                if (data.result) variant.right(true);
-                else {
-                    variant.wrong(true);
-                    $.each(self.variants(), function (index, item) {
-                        if (item.Id === data.rightId) {
-                            item.right(true);
-                            return false;
-                        }
-                    });
-                }
-            }
-        });
-        setTimeout(function () {
-            questionIndex(questionIndex() + 1);
-        }, 1000);
-    }
-}
-
-function variant(id, text) {
-    var self = this;
-
-    self.Id = id;
-    self.Text = text;
-    self.right = ko.observable(false);
-    self.wrong = ko.observable(false);
-}
-
-function racer(id, name, length, speed, dspeed, avrspeed, isReady) {
+function racer(id, name, length, speed, isReady, car) {
     var self = this;
 
     self.Id = id;
     self.Name = name;
     self.Length = ko.observable(length);
     self.Speed = ko.observable(speed);
-    self.Dspeed = dspeed;
-    self.AvrSpeed = avrspeed;
     self.IsReady = ko.observable(isReady);
+    self.Car = ko.observable(car);
 }
 
-function gameModel(userId, qs, rs) {
-  self.questions = ko.observableArray([]);
+function gameModel(userId, qs, rs, selector) {
+    self.questions = ko.observableArray([]);
 
-  self.UserId = userId;
-  self.racers = ko.observableArray([]);
-  self.RaceId = rs.id;
-  self.Length = rs.length;
-  self.IsStarted = ko.observable(rs.isStarted);
-  self.IsFinished = ko.observable(rs.isFinished);
-  self.Version = 0;
-  self.QuestionIndex = ko.observable(0);
-  self.RaceMessage = ko.observable('');
+    self.UserId = userId;
+    self.racers = ko.observableArray([]);
+    self.RaceId = rs.id;
+    self.TotalLength = rs.length;
+    self.IsStarted = ko.observable(rs.isStarted);
+    self.IsFinished = ko.observable(rs.isFinished);
+    self.IsCurrentUserFinished = ko.observable(rs.isFinished);
+    self.Version = 0;
+    self.QuestionIndex = ko.observable(0);
+    self.RaceMessage = ko.observable('');
+    self.CurrentRacer = null;
 
-  var intervalUpdate = null;
+    self.ReadyTimeout = ko.observable(0);
+    self.ReadyTimer = null;
 
-  function updateModel() {
-    if (self.IsStarted()) {
-      ko.utils.arrayFirst(self.racers(), function (item) {
-        if (item().Speed() > item().AvrSpeed)
-          item().Speed(item().Speed() - item().Dspeed);
-        else if (item().Speed() < item().AvrSpeed)
-          item().Speed(item().Speed() + item().Dspeed);
-        if (item().Length() < self.Length) {
-          item().Length(item().Length() + item().Speed());
-          raceController.updateRace(self);
+    $(rs.racers).each(function (index, item) {
+        var racer = ko.observable(item);
+        self.racers.push(racer);
+        if (item.Id === self.UserId) self.CurrentRacer = racer;
+    });
+
+    $(qs).each(function (index, item) { self.questions.push(item); });
+
+    self.carSelector = selector;
+
+    var intervalUpdate = null;
+
+    function updateModel() {
+        if (self.IsStarted()) {
+            ko.utils.arrayFirst(self.racers(), function (item) {
+                var racer = item(), raceCar = racer.Car();
+
+                if (racer.Speed() > raceCar.AvrSpeed) {
+                    racer.Speed(racer.Speed() - raceCar.DSpeed);
+                }
+                else if (racer.Speed() < raceCar.AvrSpeed) {
+                    racer.Speed(racer.Speed() + raceCar.DSpeed);
+                }
+                if (racer.Length() < self.TotalLength) {
+                    racer.Length(racer.Length() + racer.Speed());
+                }
+            });
+            raceController.updateRace(self);
+            if (!intervalUpdate) {
+                intervalUpdate = setInterval(updateModel, 1000);
+            }
         }
-      });
-      if (!intervalUpdate) {
-        intervalUpdate = setInterval(updateModel, 1000);
-      }
     }
-  }
 
-  $(rs.racers).each(function (index, item) {
-    self.racers.push(ko.observable(item));
-  });
+    self.addQuestion = function (q) {
+        self.questions.push(q);
+    }
 
-  $(qs).each(function (index, item) { self.questions.push(item); });
+    self.isCurrentUserFinished = function () {
 
-  self.addQuestion = function (q) {
-    self.questions.push(q);
-  }
+    }
 
-  self.updateRacers = function (racers) {
-    if (self.racers().length < racers.length) {
-      $(racers).each(function (index, rsr) {
-        var isExists = false;
+    self.updateRacers = function (racers) {
+        //add new racer
+        if (self.racers().length < racers.length) {
+            $(racers).each(function (index, rsr) {
+                var isExists = false;
+                ko.utils.arrayFirst(self.racers(), function (item) {
+                    if (item().Id === rsr.Racer.UserId) isExists = true;
+                });
+                if (!isExists) {
+                    var newRacer = new racer(rsr.Racer.UserId, rsr.Racer.UserName, rsr.Length, rsr.Speed, rsr.IsReady, rsr.RaceCar);
+                    self.racers.push(ko.observable(newRacer));
+                }
+            });
+        }
+
         ko.utils.arrayFirst(self.racers(), function (item) {
-          if (item().Id === rsr.Racer.UserId) isExists = true;
+            var racer = item();
+            $(racers).each(function (index, rsr) {
+                if (racer.Id === rsr.Racer.UserId) {
+                    if (self.IsStarted()) {
+                        racer.Length(rsr.Length);
+                        racer.Speed(rsr.Speed);
+                    } else if (!self.IsFinished() && !(self.ReadyTimer && self.UserId === rsr.Racer.UserId)) {
+                        racer.IsReady(rsr.IsReady);
+                    }
+                    racer.Car(rsr.RaceCar);
+
+                    if (rsr.Racer.UserId === self.UserId && rsr.RaceResult && rsr.RaceResult.RacerPlace) {
+                        var message = "You finished the race " + rsr.RaceResult.RacerPlace + "/" +
+                          rsr.RaceResult.RacersCount + ", with " + rsr.Score + " points";
+                        self.RaceMessage(message);
+                    }
+                    return;
+                }
+            });
         });
-        if (!isExists) {
-          var newRacer = new racer(rsr.Racer.UserId, rsr.Racer.UserName, rsr.Length, rsr.Speed, rsr.DSpeed, rsr.AvrSpeed, rsr.IsReady);
-          self.racers.push(ko.observable(newRacer));
-        }
-      });
     }
 
-    ko.utils.arrayFirst(self.racers(), function (item) {
-      $(racers).each(function (index, rsr) {
-        if (item().Id === rsr.Racer.UserId) {
-          if (self.IsStarted()) {
-            item().Length(rsr.Length);
-            item().Speed(rsr.Speed);
-          }
-          item().IsReady(rsr.IsReady);
-          if (rsr.Racer.UserId === self.UserId && rsr.RaceResult && rsr.RaceResult.RacerPlace) {
-            var message = "You finished the race " + rsr.RaceResult.RacerPlace + "/" +
-              rsr.RaceResult.RacersCount + ", with " + rsr.Score + " points";
-            self.RaceMessage(message);
-          }
-          return;
-        }
-      });
-    });
-  }
+    self.updateRaceInfo = function () {
+        $.ajax({
+            data: { raceId: self.RaceId, version: self.Version },
+            url: "/Home/GetRaceInfo",
+            contentType: "application/json;",
+            dataType: "json",
+            success: function (data) {
+                self.Version = data.Version;
+                self.updateRacers(data.Racers);
+                self.IsStarted(data.IsStarted);
+                self.IsFinished(data.IsFinished);
+                if (!data.IsFinished) {
+                    self.updateRaceInfo();
+                } else {
+                    clearInterval(intervalUpdate);
+                }
+                updateModel();
+                raceController.updateRace(self);
+            }
+        });
+    }
 
-  self.updateRaceInfo = function () {
-    $.ajax({
-      data: { raceId: self.RaceId, version: self.Version },
-      url: "/Home/GetRaceInfo",
-      contentType: "application/json;",
-      dataType: "json",
-      success: function (data) {
-        self.Version = data.Version;
-        self.updateRacers(data.Racers);
-        self.IsStarted(data.IsStarted);
-        self.IsFinished(data.IsFinished);
-        if (!data.IsFinished) {
-          self.updateRaceInfo();
+    self.changeStatus = function () {
+        var isReady = !this.IsReady();
+        this.IsReady(isReady);
+        clearInterval(self.ReadyTimer);
+        if (isReady) {
+            self.ReadyTimeout(4);
+            self.ReadyTimer = setInterval(function () {
+                self.ReadyTimeout(self.ReadyTimeout() - 1);
+                if (self.ReadyTimeout() <= 0) {
+                    sendReadyState(isReady);
+                    clearInterval(self.ReadyTimer);
+                }
+            }, 1000);
         } else {
-          clearInterval(intervalUpdate);
+            sendReadyState(isReady);
         }
-        updateModel();
-        raceController.updateRace(self);
-      }
-    });
-  }
+    }
 
-  self.changeStatus = function () {
-    $.ajax({
-      url: "/Home/RacerReady",
-      data: { raceId: self.RaceId, isReady: !this.IsReady() },
-      contentType: "application/json;",
-      dataType: "json",
-      success: function (data) {
-        self.updateRacers(data.Racers);
-        if (!data.IsFinished) {
-          self.updateRaceInfo();
-        } else {
-          clearInterval(intervalUpdate);
-        }
-        raceController.updateRace(self);
-      }
-    });
-  }
+    function sendReadyState(isReady) {
+        $.ajax({
+            url: "/Home/RacerReady",
+            data: {
+                raceId: self.RaceId,
+                isReady: isReady,
+                carId: self.carSelector.currentCarId(),
+                color: self.carSelector.currentColor()
+            },
+            contentType: "application/json;",
+            dataType: "json",
+            success: function (data) {
+                self.updateRacers(data.Racers);
+            }
+        });
+    }
 
-  self.updateRaceInfo();
+    self.updateRaceInfo();
 }
 
 $(document).ready(function () {
-  ko.applyBindings(new gameModel(userId, getQuestions(), getRaceData()));
+    ko.applyBindings(new gameModel(userId, getQuestions(), getRaceData(), getCarSelector()));
 });

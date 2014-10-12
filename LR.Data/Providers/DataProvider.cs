@@ -11,6 +11,7 @@ namespace LR.Data.Providers
         private static QuestionProvider questions;
         private static CategoryProvider category;
         private static UserProvider userProfile;
+        private static CarsProvider cars;
 
         public static QuestionProvider Questions
         {
@@ -45,6 +46,17 @@ namespace LR.Data.Providers
                     userProfile = new UserProvider();
                 }
                 return userProfile;
+            }
+        }
+
+        public static CarsProvider Cars
+        {
+            get
+            {
+                if(cars == null){
+                    cars = new CarsProvider();
+                }
+                return cars;
             }
         }
     }

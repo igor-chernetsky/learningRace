@@ -3,13 +3,11 @@
     ViewBag.Title = "Game";
     ViewBag.BodyClass = "playground";
 }
+@Scripts.Render("~/bundles/gamelibs", "~/bundles/game")
 @section customScripts{
-    <script src="../../Scripts/kinetic-v4.5.5.min.js"></script>
-    <script src="../../Scripts/knockout-2.3.0.js"></script>
-    <script src="../../Scripts/Game/RaceController.js"></script>
-    <script src="../../Scripts/Game/GameModel.js"></script>
     <script>
         var userId = @(CurrentUser.UserId);
+
         function getQuestions(){
             var qs = [];
             @foreach (LR.Models.Question sq in @ViewBag.questionList)
@@ -28,17 +26,43 @@
             var raceData = { id: '@Model.RaceId', length: @Model.Length, isStarted: @Model.IsStarted.ToString().ToLower(), racers: []};
 
             @foreach(LR.Models.RaceModels.RacerModel racer in Model.Racers){
-                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @(racer.Length == 0 ? 0 : racer.Speed), @racer.RaceCar.DSpeed, @racer.RaceCar.AvrSpeed, @racer.IsReady.ToString().ToLower());
+                @:var c = @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(racer.RaceCar));
+                @:var r = new racer(@racer.Racer.UserId, '@racer.Racer.UserName', @racer.Length, @(racer.Length == 0 ? 0 : racer.Speed), @racer.IsReady.ToString().ToLower(), c);
                 @:raceData.racers.push(r);
             }
             return raceData;
+        }
+        function getCarSelector(){
+            var cars = [];
+            var carColors = [];
+            @foreach(string color in Enum.GetNames(typeof (LR.Models.CarColors))){
+                @:carColors.push('@color');
+            }
+
+            @foreach (LR.Models.Car car in ViewBag.Cars){
+                @:var c = @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(car));
+                @:cars.push(c);
+            }
+            return new carSelector(carColors, cars, '@Model.RaceId', '@ViewBag.CurrentRacer.RaceCar.Id');
         }
     </script>
 }
 
 <div class="row">
-    <div id="cnvRace"></div>
-    <div class="col-sm-4 raceDetails">
+    <div class="carSelector col-sm-4 lr_block" data-bind="visible: !IsStarted()">
+        <div class="lr_header">Select a car</div>
+        <div data-bind="foreach: carSelector.carsCollection" class="clear">
+            <div class="carItem" data-bind="click: function(){carSelector.setCar(Id)}, css:{ selected: carSelector.currentCarId() == Id }">
+                <img data-bind="attr:{alt:Name, src:carSelector.imagePath(Name) }" />
+            </div>
+        </div>
+        <div class="colorPicker clear" data-bind="foreach: carSelector.carColors">
+            <div class="colorBox" data-bind="style:{background:$data}, click: function(){carSelector.setColor($data);}"></div>
+        </div>
+    </div>
+
+    <div class="col-sm-4 raceDetails lr_block">
+        <div class="lr_header">Racers</div>
         <div class="raceContainer">
             <table>
                 <thead>
@@ -48,10 +72,10 @@
                     <tr>
                         <td data-bind="text: Name"></td>
                         <td>
-                            <div data-bind="text: IsReady() ? 'Ready' : 'Not Ready'"></div>
+                            <div data-bind="text: (userId == Id && ReadyTimeout()) ? ReadyTimeout : (IsReady() ? 'Ready' : 'Not Ready')"></div>
                         </td>
                         <td>
-                            <a data-bind="visible: userId == Id && IsFinished()" class="btn btn-default" href="/Account/HallOfFame" >Finish the race</a>
+                            <a data-bind="visible: userId == Id && Length() >= TotalLength" class="btn btn-default" href="/Account/HallOfFame">Finish the race</a>
                             <button data-bind="click: changeStatus, text: IsReady() ? 'Not Ready' : 'Ready', visible: userId == Id && !IsStarted()" class="btn" />
                         </td>
                     </tr>
@@ -62,7 +86,8 @@
                 There no more question for you, wait until race is over.
             </div>
         </div>
-        <div data-bind="foreach: questions">
+        <div class="lr_header">Question</div>
+        <div data-bind="foreach: questions, visible: CurrentRacer().Length() < TotalLength">
             <div id="questionContainer" class="questionContainer" data-bind="visible: (QuestionIndex() == $index() && IsStarted())">
                 <div>
                     Answer question below to increase speed of your car:
@@ -78,4 +103,6 @@
             </div>
         </div>
     </div>
+
+    <div id="cnvRace"></div>
 </div>

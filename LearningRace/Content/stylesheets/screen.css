@@ -1,4 +1,4 @@
-/* line 8, ../sass/base.scss */
+/* line 11, ../sass/base.scss */
 .grayBottom {
   border-bottom: 1px solid lightgrey;
 }
@@ -7501,13 +7501,18 @@ td.visible-print {
     display: none !important;
   }
 }
-/* line 82, icons/*.png */
-.icons-sprite, .icons-facebook40, .icons-green-checkmark, .icons-icons, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
-  background: url('/../Images/icons-s65ed7e551f.png') no-repeat;
+/* line 90, icons/*.png */
+.icons-sprite, .icons-facebook40, .icons-fbshare-icon, .icons-green-checkmark, .icons-icons, .icons-logo, .icons-red-cross, .icons-vkontakte40 {
+  background: url('/../Images/icons-s0fe9f32526.png') no-repeat;
 }
 
 /* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-facebook40 {
+  background-position: 0 -940px;
+}
+
+/* line 60, C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-fbshare-icon {
   background-position: 0 -922px;
 }
 
@@ -7566,12 +7571,23 @@ td.visible-print {
   width: 28px;
 }
 
-/* line 7, ../sass/screen.scss */
+/* line 29, ../sass/image-assets.scss */
+.icons-fbshare-icon {
+  height: 18px;
+  width: 57px;
+}
+
+/* line 6, ../sass/screen.scss */
+body {
+  min-width: 420px;
+}
+
+/* line 11, ../sass/screen.scss */
 .content-wrapper .btn {
   border: 1px solid gray;
 }
 
-/* line 12, ../sass/screen.scss */
+/* line 16, ../sass/screen.scss */
 html {
   position: absolute;
   top: 0;
@@ -7580,7 +7596,7 @@ html {
   right: 0;
 }
 
-/* line 20, ../sass/screen.scss */
+/* line 24, ../sass/screen.scss */
 body {
   background-image: url("../../images/asphalt.png");
   position: absolute;
@@ -7589,22 +7605,20 @@ body {
   width: 100%;
 }
 
-/* line 28, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
 #body {
-  background: white;
   min-height: 100%;
   min-height: calc(100% - 53px);
   padding-bottom: 30px;
   position: relative;
 }
 
-/* line 36, ../sass/screen.scss */
+/* line 39, ../sass/screen.scss */
 .playground {
-  width: 800px;
-  background-color: #ececec !important;
+  min-width: 400px;
 }
 
-/* line 41, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 #footer {
   background-color: #ececec;
   position: absolute;
@@ -7614,13 +7628,18 @@ body {
   left: 0;
   right: 0;
 }
-/* line 47, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 #footer .container {
   padding: 5px;
   color: #999;
 }
+/* line 57, ../sass/screen.scss */
+#footer .container .vkshare {
+  display: inline-block;
+  height: 14px;
+}
 
-/* line 55, ../sass/screen.scss */
+/* line 64, ../sass/screen.scss */
 .clear:after {
   content: ".";
   visibility: hidden;
@@ -7629,7 +7648,7 @@ body {
   clear: both;
 }
 
-/* line 64, ../sass/screen.scss */
+/* line 73, ../sass/screen.scss */
 .main-content li.categoryContainer {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(10%, #ececec), color-stop(50%, #ffffff), color-stop(100%, #ffffff));
   background-image: -webkit-linear-gradient(top, #ececec 10%, #ffffff 50%, #ffffff);
@@ -7641,150 +7660,191 @@ body {
   padding-top: 10px;
   border-top: 1px solid #7f7f7f;
   overflow: hidden;
+  margin: 0;
 }
-/* line 72, ../sass/screen.scss */
+/* line 82, ../sass/screen.scss */
 .main-content li.categoryContainer h3 {
   margin-top: 5px;
 }
-/* line 76, ../sass/screen.scss */
+/* line 86, ../sass/screen.scss */
 .main-content li.categoryContainer div {
   margin-bottom: 5px;
 }
-/* line 80, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 .main-content li.categoryContainer .image-container {
   width: 230px;
 }
-/* line 83, ../sass/screen.scss */
+/* line 93, ../sass/screen.scss */
 .main-content li.categoryContainer .image-container img {
   width: 150px;
   margin-left: 25px;
 }
-/* line 88, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 .main-content li.categoryContainer .image-container .action {
   margin-top: 5px;
 }
-/* line 92, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 .main-content li.categoryContainer .action {
   width: 100%;
 }
-/* line 94, ../sass/screen.scss */
+/* line 104, ../sass/screen.scss */
 .main-content li.categoryContainer .action .btn-default {
   width: 200px;
   margin-top: 5px;
 }
-/* line 97, ../sass/screen.scss */
+/* line 107, ../sass/screen.scss */
 .main-content li.categoryContainer .action .btn-default.small {
   width: 80px;
   margin: 0 5px;
 }
-/* line 104, ../sass/screen.scss */
+/* line 114, ../sass/screen.scss */
 .main-content li.categoryContainer ul.questions {
   margin-bottom: 5px;
   padding-left: 5px;
 }
 
-/* line 111, ../sass/screen.scss */
+/* line 121, ../sass/screen.scss */
 .main-content > ul {
   padding-left: 0;
   margin-left: 0;
 }
 
-/* line 117, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 .item-details .row {
   margin: 10px 0;
 }
-/* line 119, ../sass/screen.scss */
+/* line 129, ../sass/screen.scss */
 .item-details .row textarea {
   width: 100%;
 }
-/* line 123, ../sass/screen.scss */
+/* line 133, ../sass/screen.scss */
 .item-details .row .variantBlock {
   margin-bottom: 10px;
 }
-/* line 125, ../sass/screen.scss */
+/* line 135, ../sass/screen.scss */
 .item-details .row .variantBlock input[type="radio"] {
   margin: 0 10px;
 }
-/* line 130, ../sass/screen.scss */
+/* line 140, ../sass/screen.scss */
 .item-details .caption {
   font-weight: bold;
 }
-/* line 133, ../sass/screen.scss */
+/* line 143, ../sass/screen.scss */
 .item-details img.caption {
   width: 200px;
 }
-/* line 136, ../sass/screen.scss */
+/* line 146, ../sass/screen.scss */
 .item-details .imageContainer img {
   max-width: 100%;
 }
 
-/* line 141, ../sass/screen.scss */
+/* line 151, ../sass/screen.scss */
 .questionShort {
   max-height: 40px;
   overflow: hidden;
 }
-/* line 145, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 .questionShort:hover {
   max-height: none;
 }
 
-/* line 150, ../sass/screen.scss */
+/* line 160, ../sass/screen.scss */
 #cnvRace {
   float: left;
-  width: 33%;
+  width: 48%;
+  text-align: center;
   min-width: 400px;
 }
 
-/* line 156, ../sass/screen.scss */
+/* line 167, ../sass/screen.scss */
 .raceDetails {
   float: left;
-  width: 400px;
+  width: 47%;
+  margin-left: 1%;
+  margin-right: 2%;
   background-color: #ececec;
   color: #333333;
 }
-/* line 160, ../sass/screen.scss */
+/* line 173, ../sass/screen.scss */
 .raceDetails .questionContainer {
   padding-top: 20px;
 }
-/* line 163, ../sass/screen.scss */
+/* line 176, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container {
   position: relative;
 }
-/* line 165, ../sass/screen.scss */
+/* line 178, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton {
   width: 100%;
   margin: 10px 0;
   border: solid 1px gray;
 }
-/* line 169, ../sass/screen.scss */
+/* line 182, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton.wrong {
   border-color: red;
 }
-/* line 172, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .variantButton.right {
   border-color: green;
 }
-/* line 176, ../sass/screen.scss */
+/* line 189, ../sass/screen.scss */
 .raceDetails .questionContainer .variant-container .icon {
   position: absolute;
   top: 13px;
   right: -7px;
 }
-/* line 186, ../sass/screen.scss */
+/* line 199, ../sass/screen.scss */
 .raceDetails th, .raceDetails td {
   padding: 5px 10px;
 }
-/* line 190, ../sass/screen.scss */
+/* line 203, ../sass/screen.scss */
 .raceDetails h4 {
   padding: 10px;
 }
 
-/* line 196, ../sass/screen.scss */
+/* line 208, ../sass/screen.scss */
+.carSelector {
+  float: left;
+  width: 47%;
+  margin-left: 2%;
+  margin-right: 1%;
+}
+/* line 214, ../sass/screen.scss */
+.carSelector .carItem {
+  cursor: pointer;
+  float: left;
+  margin-left: 10px;
+  padding: 5px;
+}
+/* line 220, ../sass/screen.scss */
+.carSelector .carItem.selected {
+  border: #333 2px solid;
+  padding: 3px;
+}
+/* line 226, ../sass/screen.scss */
+.carSelector .colorPicker {
+  padding: 10px;
+}
+/* line 229, ../sass/screen.scss */
+.carSelector .colorPicker .colorBox {
+  border: 1px solid #ccc;
+  float: left;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* line 241, ../sass/screen.scss */
 table.table .btn {
   margin-left: 10px;
 }
 
-/* line 203, ../sass/screen.scss */
+/* line 246, ../sass/screen.scss */
+.themeList {
+  margin: 5px 0;
+}
+/* line 249, ../sass/screen.scss */
 .themeList .themeFrame {
   width: 200px;
   height: 150px;
@@ -7792,11 +7852,11 @@ table.table .btn {
   margin-left: 40px;
   position: relative;
 }
-/* line 210, ../sass/screen.scss */
+/* line 256, ../sass/screen.scss */
 .themeList .themeFrame .imageFrame {
   border: 1px solid #ececec;
 }
-/* line 213, ../sass/screen.scss */
+/* line 259, ../sass/screen.scss */
 .themeList .themeFrame .imageFrame .caption {
   position: absolute;
   bottom: 0;
@@ -7809,26 +7869,88 @@ table.table .btn {
   background-image: linear-gradient(top, rgba(255, 255, 255, 0.5), #ececec);
   color: #333333;
 }
-/* line 220, ../sass/screen.scss */
+/* line 266, ../sass/screen.scss */
 .themeList .themeFrame .imageFrame .caption .title {
   font-size: 14px;
   font-weight: bold;
 }
-/* line 226, ../sass/screen.scss */
+/* line 272, ../sass/screen.scss */
 .themeList .themeFrame .imageFrame img {
   max-width: 198px;
   max-height: 148px;
   width: 100%;
 }
-/* line 233, ../sass/screen.scss */
+/* line 279, ../sass/screen.scss */
 .themeList .themeFrame .controlPanel {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-/* line 241, ../sass/screen.scss */
+/* line 287, ../sass/screen.scss */
 .themeFilter {
   float: right;
-  margin-top: -40px;
+  margin-right: 10px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* line 294, ../sass/screen.scss */
+.icons-fbshare-icon {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 0 -3px 5px;
+}
+
+/* line 301, ../sass/screen.scss */
+.shareContainer .vkshare {
+  display: inline-block;
+  height: 16px;
+  margin-left: 10px;
+}
+/* line 305, ../sass/screen.scss */
+.shareContainer .vkshare td {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+/* line 313, ../sass/screen.scss */
+.container {
+  background-color: #ececec;
+}
+/* line 316, ../sass/screen.scss */
+.container .lr_block {
+  border-radius: 10px 10px 0 0;
+  border: 1px solid white;
+  margin-top: 10px;
+  padding: 0;
+}
+/* line 322, ../sass/screen.scss */
+.container .lr_block .lr_header {
+  padding: 4px 10px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(10%, #ffffff), color-stop(100%, #ececec));
+  background-image: -webkit-linear-gradient(top, #ffffff 10%, #ececec);
+  background-image: -moz-linear-gradient(top, #ffffff 10%, #ececec);
+  background-image: -o-linear-gradient(top, #ffffff 10%, #ececec);
+  background-image: linear-gradient(top, #ffffff 10%, #ececec);
+  margin-bottom: 5px;
+  border-radius: 10px 10px 0 0;
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: none;
+}
+
+@media (max-width: 992px) {
+  /* line 336, ../sass/screen.scss */
+  .raceDetails, .carSelector {
+    width: 98%;
+    margin: 0 1%;
+  }
+
+  /* line 341, ../sass/screen.scss */
+  #cnvRace {
+    width: 100%;
+  }
 }

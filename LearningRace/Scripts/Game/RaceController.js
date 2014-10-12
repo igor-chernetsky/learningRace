@@ -5,12 +5,10 @@ raceController = (function () {
         mainHeight: 500,
         mainWidth: 400,
         racerPosY: 400,
-        imagesToLoad: ['../Images/Cars/BasicCar.png', '../Images/Cars/redSedan.png', '../Images/Cars/pinkUnversal.png', '../Images/Race/finish.png']
+        imagesToLoad: ['../Images/Race/finish.png']
     }
 
     var raceModel = {
-        length: 1000,
-
         timer: null,
         isStarted: false,
         carShapes: [],
@@ -69,17 +67,23 @@ raceController = (function () {
 
     }
 
+    function getCarImage(raceCar) {
+        var imageObj = new Image();
+        imageObj.src = utils.getPathToCarImage(raceCar.Name, raceCar.StringColor);
+        return imageObj;
+    }
+
     function drawCars(racers, id, length) {
         ko.utils.arrayFirst(racers, function (item) {
             //radar
-            if (item().Id === id) raceModel.currentRacer = item;
+            var racer = item();
             var radarItem = new Kinetic.Circle({
                 x: 280 + (raceModel.radarShapes.length * 20),
                 y: raceConst.mainHeight - 95,
-                radius: item().Id === id ? 7 : 5,
-                fill: '#' + Math.floor((Math.random() * 999) + 1),
+                radius: racer.Id === id ? 7 : 5,
+                fill: racer.Car().StringColor,
                 stroke: 'black',
-                strokeWidth: item().Id === id ? 2 : 1,
+                strokeWidth: racer.Id === id ? 2 : 1,
             });
             var radarLine = new Kinetic.Line({
                 points: [280 + (raceModel.radarShapes.length * 20), 28, 280 + (raceModel.radarShapes.length * 20), raceConst.mainHeight - 100],
@@ -91,11 +95,11 @@ raceController = (function () {
 
             //cars
             var imageObj = new Image();
-            imageObj.src = raceConst.imagesToLoad[1];
+
             var car = new Kinetic.Image({
                 x: 40 + (raceModel.carShapes.length * 50),
                 y: raceConst.racerPosY,
-                image: imageObj,
+                image: getCarImage(racer.Car()),
                 width: 28,
                 height: 49
             });
@@ -114,7 +118,7 @@ raceController = (function () {
             strokeWidth: 0
         });
         var imageObj = new Image();
-        imageObj.src = raceConst.imagesToLoad[3];
+        imageObj.src = raceConst.imagesToLoad[0];
         var finishLine = new Kinetic.Image({
             x: 30,
             y: -length + 400,
@@ -138,7 +142,7 @@ raceController = (function () {
                 points: [80 + i * 50, -length, 80 + i * 50, raceConst.mainHeight],
                 stroke: '#fff',
                 strokeWidth: 4,
-                dashArray: [50, 5]
+                dash: [50, 5]
             });
             raceModel.roadlayer.add(whiteLine);
         }
@@ -147,7 +151,7 @@ raceController = (function () {
 
     function drawInterface() {
         var imageObj = new Image();
-        imageObj.src = raceConst.imagesToLoad[3];
+        imageObj.src = raceConst.imagesToLoad[0];
         var finishLine = new Kinetic.Image({
             x: 260,
             y: 0,
@@ -162,17 +166,18 @@ raceController = (function () {
     function updateCars(racers, id, length) {
         var index = 0
         if (typeof (raceModel.currentRacer) === 'function') {
+            var racer = raceModel.currentRacer(), raceCar = racer.Car();
             ko.utils.arrayFirst(racers, function (item) {
                 var progress = (raceConst.mainHeight - 125) * item().Length() / length;
                 raceModel.radarShapes[index].setY(raceConst.mainHeight - 95 - progress);
                 raceModel.carShapes[index].setY(-item().Length() + raceConst.racerPosY);
                 index++;
             });
-            raceModel.gui.speed.setText(raceModel.currentRacer().Speed() + ' km/h');
-            raceModel.gui.speed.setFill(raceModel.currentRacer().Speed() > raceModel.currentRacer().AvrSpeed+10 ? '#0fa403' :
-                raceModel.currentRacer().Speed() < raceModel.currentRacer().AvrSpeed - 10 ? '#b10000' : '#b1af00');
-            raceModel.gui.length.setText(raceModel.currentRacer().Length() + ' / ' + length);
-            raceModel.roadlayer.setY(raceModel.currentRacer().Length());
+            raceModel.gui.speed.setText(racer.Speed() + ' km/h');
+            raceModel.gui.speed.setFill(racer.Speed() > raceCar.AvrSpeed + 10 ? '#0fa403' :
+                racer.Speed() < raceCar.AvrSpeed - 10 ? '#b10000' : '#b1af00');
+            raceModel.gui.length.setText(racer.Length() + ' / ' + length);
+            raceModel.roadlayer.setY(racer.Length());
             raceModel.roadlayer.draw();
             raceModel.layer.draw();
         }
@@ -203,11 +208,12 @@ raceController = (function () {
 
             raceModel.layer = new Kinetic.Layer();
             raceModel.roadlayer = new Kinetic.Layer();
+            raceModel.currentRacer = raceObj.CurrentRacer;
 
             drawInterface();
-            drawGui(raceObj.Length);
-            drawRoad(raceObj.Length, raceObj.racers()[0]().Speed());
-            drawCars(raceObj.racers(), raceObj.UserId, raceObj.Length);
+            drawGui(raceObj.TotalLength);
+            drawRoad(raceObj.TotalLength, raceObj.racers()[0]().Speed());
+            drawCars(raceObj.racers(), raceObj.UserId, raceObj.TotalLength);
 
             stage.add(raceModel.roadlayer);
             stage.add(raceModel.layer);
@@ -216,11 +222,11 @@ raceController = (function () {
 
     return {
         updateRace: function (raceObj) {
-            if (raceObj.IsStarted) {
+            if (raceObj.IsStarted()) {
                 if (!raceModel.isStarted) {
                     startRace(raceObj);
                 } else {
-                    updateCars(raceObj.racers(), raceObj.UserId, raceObj.Length);
+                    updateCars(raceObj.racers(), raceObj.UserId, raceObj.TotalLength);
                 }
             }
         }

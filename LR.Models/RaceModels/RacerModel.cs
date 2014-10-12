@@ -58,6 +58,21 @@ namespace LR.Models.RaceModels
             }
         }
 
+        public void ChangeSpeed(bool increase)
+        {
+            if (increase)
+            {
+                Speed += RaceCar.Accseleration;
+                if (Speed > RaceCar.MaxSpeed) Speed = RaceCar.MaxSpeed;
+            }
+            else
+            {
+                Speed -= RaceCar.Breaks;
+                if (Speed < 1) Speed = 1;
+            }
+            Score += increase ? 2 : -1;
+        }
+
         #endregion
 
         #region internalClasses
