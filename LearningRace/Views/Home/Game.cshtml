@@ -12,10 +12,10 @@
             var qs = [];
             @foreach (LR.Models.Question sq in @ViewBag.questionList)
             {
-                @:var q = new question('@sq.Id', '@Html.Raw(sq.QuestionText)', '@Model.RaceId');
+                @:var q = new question('@sq.Id', '@Html.Raw(sq.QuestionText.Replace("'", "\\'"))', '@Model.RaceId');
                 foreach (LR.Models.Variant sv in sq.Variants)
                 {
-                    @:var v = new variant('@sv.Id', '@sv.Value');
+                    @:var v = new variant('@sv.Id', '@sv.Value.Replace("'", "\\'")'.replace('&gt;', '>').replace('&lt;', '<'));
                     @:q.addVariant(v);
                 }
                 @:qs.push(q);
@@ -83,7 +83,7 @@
             </table>
             <div data-bind="visible: RaceMessage(), text:RaceMessage()"></div>
             <div data-bind="visible: (QuestionIndex() >= questions().length && IsStarted() && !IsFinished())">
-                There no more question for you, wait until race is over.
+                There are no more question for you, wait until race is over.
             </div>
         </div>
         <div class="lr_header">Question</div>

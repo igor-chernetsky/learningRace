@@ -3,8 +3,10 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section featured {
+    @Model.Name
+}
 <fieldset class="item-details">
-    <legend>@Model.Name</legend>
     @if (!string.IsNullOrEmpty(Model.Description)){
     <div class="row">
         <div class="col-sm-3 caption">

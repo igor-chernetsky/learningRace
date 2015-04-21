@@ -152,6 +152,11 @@ body{
     max-height: 40px;
     overflow: hidden;
 
+    img{
+        max-width: 300px;
+        max-height: 300px;
+    }
+
     &:hover{
         max-height: none;
     }
@@ -172,6 +177,11 @@ body{
 
     .questionContainer{
         padding-top: 20px;
+
+        img{
+            max-width: 300px;
+            max-height: 300px;
+        }
 
         .variant-container{
             position: relative;
@@ -251,7 +261,10 @@ table.table{
         height: 150px;
         float: left;
         margin-left: 40px;
+        margin-bottom: 10px;
         position: relative;
+        border-radius: 15px;
+        overflow: hidden;
 
         .imageFrame{
             border: 1px solid $lightGray;
